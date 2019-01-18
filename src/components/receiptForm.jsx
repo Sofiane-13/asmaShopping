@@ -87,6 +87,12 @@ class ReceiptForm extends Form {
     if (myIngredients[index].quantity > 0) myIngredients[index].quantity--;
     this.setState({ myIngredients });
   };
+  handelonDelete = ingredient => {
+    const myIngredients = this.state.myIngredients.filter(
+      m => m !== ingredient
+    );
+    this.setState({ myIngredients });
+  };
   render() {
     return (
       <div>
@@ -96,15 +102,23 @@ class ReceiptForm extends Form {
           {this.renderSelect("genreId", "Genre", this.state.genres)}
           {this.renderButton("Save")}
         </form>
+        {this.renderMyIngredients()}
+      </div>
+    );
+  }
+  renderMyIngredients() {
+    if (this.state.myIngredients.length > 0)
+      return (
         <div className="content-ingredients">
           <MyIngredients
             ingredients={this.state.myIngredients}
             onAddQuantity={this.handelAddQuantity}
             onRemoveQuantity={this.handelRemoveQuantity}
+            onDelete={this.handelonDelete}
           />
         </div>
-      </div>
-    );
+      );
+    else return <div>There is no ingredient</div>;
   }
 }
 

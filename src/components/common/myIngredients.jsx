@@ -6,7 +6,12 @@ class MyIngredients extends Component {
     return <div>{this.renderIngredients()}</div>;
   }
   renderIngredients() {
-    const { ingredients, onAddQuantity, onRemoveQuantity } = this.props;
+    const {
+      ingredients,
+      onAddQuantity,
+      onRemoveQuantity,
+      onDelete
+    } = this.props;
     if (ingredients.length > 0)
       return (
         <table className="table">
@@ -14,6 +19,7 @@ class MyIngredients extends Component {
             <tr>
               <th scope="col">Ingredients</th>
               <th scope="col">Quantity</th>
+              <th scope="col">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -23,15 +29,6 @@ class MyIngredients extends Component {
                 <td>
                   <div>
                     <button
-                      onClick={() => onAddQuantity(ingredient)}
-                      type="button"
-                      className="btn btn-primary"
-                      style={{ margin: "5px" }}
-                    >
-                      +
-                    </button>
-                    {ingredient.quantity}
-                    <button
                       onClick={() => onRemoveQuantity(ingredient)}
                       type="button"
                       className="btn btn-primary"
@@ -39,7 +36,25 @@ class MyIngredients extends Component {
                     >
                       -
                     </button>
+                    {ingredient.quantity}
+
+                    <button
+                      onClick={() => onAddQuantity(ingredient)}
+                      type="button"
+                      className="btn btn-primary"
+                      style={{ margin: "5px" }}
+                    >
+                      +
+                    </button>
                   </div>
+                </td>
+                <td>
+                  <button
+                    onClick={() => onDelete(ingredient)}
+                    className="btn btn-danger btn-sm"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
