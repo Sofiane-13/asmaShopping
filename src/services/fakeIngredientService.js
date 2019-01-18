@@ -22,8 +22,6 @@ export function getIngredients() {
 }
 
 export function getIngredient(id) {
-  console.log(id);
   const ingredient = ingredients.filter(g => g._id === id);
-  console.log(ingredient);
   return ingredient;
 }

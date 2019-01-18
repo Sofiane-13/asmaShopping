@@ -3,7 +3,15 @@ import * as genresAPI from "./fakeGenreService";
 const receipts = [{
     _id: "5b21ca3eeb7f6fbccd471815",
     title: "Couscous",
-    ingredients: ['semoule', 'water'],
+    ingredients: [{
+        name: 'water',
+        quantity: 1
+      },
+      {
+        name: 'semoul',
+        quantity: 1
+      }
+    ],
     genre: {
       _id: "5b21ca3eeb7f6fbccd471818",
       name: "receipt"
@@ -21,7 +29,15 @@ const receipts = [{
   {
     _id: "5b21ca3eeb7f6fbccd471817",
     title: "Pizza",
-    ingredients: [],
+    ingredients: [{
+        name: 'tomato',
+        quantity: 1
+      },
+      {
+        name: 'cheese',
+        quantity: 1
+      }
+    ],
     genre: {
       _id: "5b21ca3eeb7f6fbccd471820",
       name: "cooked meal"
@@ -30,12 +46,20 @@ const receipts = [{
   {
     _id: "5b21ca3eeb7f6fbccd471819",
     title: "bread",
-    ingredients: [],
+    ingredients: [{
+        name: 'water',
+        quantity: 1
+      },
+      {
+        name: 'flour',
+        quantity: 1
+      }
+    ],
     genre: {
       _id: "5b21ca3eeb7f6fbccd471814",
       name: "bakery"
     },
-    ingredients: ["flour", "water"]
+
   },
   {
     _id: "5b21ca3eeb7f6fbccd47181b",

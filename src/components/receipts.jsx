@@ -16,7 +16,6 @@ class Receipts extends Component {
     const receipts = getReceipts();
     // const genres = [{ _id: "", name: "All Genres" }, ...data];
 
-    console.log(receipts);
     // const { data: movies } = await getMovies();
     this.setState({ receipts });
   }

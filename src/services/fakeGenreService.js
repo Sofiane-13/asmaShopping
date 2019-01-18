@@ -22,8 +22,6 @@ export function getGenres() {
   return genres.filter(g => g);
 }
 export function getGenre(id) {
-  console.log(id);
   const Genre = genres.filter(g => g._id === id);
-  console.log(Genre);
   return Genre;
 }
