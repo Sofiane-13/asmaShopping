@@ -3,6 +3,7 @@ import * as genresAPI from "./fakeGenreService";
 const receipts = [{
     _id: "5b21ca3eeb7f6fbccd471815",
     title: "Couscous",
+    ingredients: ['semoule', 'water'],
     genre: {
       _id: "5b21ca3eeb7f6fbccd471818",
       name: "receipt"
@@ -11,6 +12,7 @@ const receipts = [{
   {
     _id: "5b21ca3eeb7f6fbccd471816",
     title: "Ratatouille",
+    ingredients: [],
     genre: {
       _id: "5b21ca3eeb7f6fbccd471818",
       name: "receipt"
@@ -19,6 +21,7 @@ const receipts = [{
   {
     _id: "5b21ca3eeb7f6fbccd471817",
     title: "Pizza",
+    ingredients: [],
     genre: {
       _id: "5b21ca3eeb7f6fbccd471820",
       name: "cooked meal"
@@ -27,15 +30,17 @@ const receipts = [{
   {
     _id: "5b21ca3eeb7f6fbccd471819",
     title: "bread",
+    ingredients: [],
     genre: {
       _id: "5b21ca3eeb7f6fbccd471814",
       name: "bakery"
     },
-    ingredients: ['flour', 'water']
+    ingredients: ["flour", "water"]
   },
   {
     _id: "5b21ca3eeb7f6fbccd47181b",
     title: "banana",
+    ingredients: [],
     genre: {
       _id: "5b21ca3eeb7f6fbccd471815",
       name: "fruit"
@@ -59,7 +64,6 @@ export function saveReceipt(receipt) {
 
   deleteReceipt(receipt._id);
   receipts.push(receiptExesting);
-
 }
 export function addIngredient(id, ingredient) {
   const receiptExesting = receipts.find(m => m._id === id);

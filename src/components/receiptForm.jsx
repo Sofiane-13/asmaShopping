@@ -7,8 +7,8 @@ import { getIngredients } from "../services/fakeIngredientService";
 class ReceiptForm extends Form {
   state = {
     data: {
-      title: "",
-      genreId: ""
+      title: "title",
+      genreId: "0"
     },
     genres: [],
     ingredients: [],
@@ -22,21 +22,12 @@ class ReceiptForm extends Form {
       .label("Title"),
     genreId: Joi.string()
       .required()
-      .label("Genre"),
-    ingredientId: Joi.string()
-      .required()
-      .label("Ingredient")
+      .label("Genre")
   };
 
   populateGenres() {
     const genres = getGenres();
     this.setState({ genres });
-  }
-
-  populateIngredients() {
-    const ingredients = getIngredients();
-    console.log(ingredients);
-    this.setState({ ingredients });
   }
 
   populateReceipts() {
@@ -55,7 +46,6 @@ class ReceiptForm extends Form {
   componentDidMount() {
     this.populateGenres();
     this.populateReceipts();
-    this.populateIngredients();
   }
 
   mapToViewModel(receipt) {
@@ -79,11 +69,6 @@ class ReceiptForm extends Form {
         <form onSubmit={this.handleSubmit}>
           {this.renderInput("title", "Title")}
           {this.renderSelect("genreId", "Genre", this.state.genres)}
-          {this.renderSelect(
-            "ingredientId",
-            "Ingredient",
-            this.state.ingredients
-          )}
           {this.renderButton("Save")}
         </form>
       </div>
