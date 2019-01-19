@@ -6,6 +6,7 @@ import { getReceipt, saveReceipt } from "../services/fakeReceiptService";
 import { getIngredients } from "../services/fakeIngredientService";
 import MyIngredients from "./common/myIngredients";
 import "./receiptForm.css";
+import Popup from "./common/popup";
 class ReceiptForm extends Form {
   state = {
     data: {
@@ -102,14 +103,18 @@ class ReceiptForm extends Form {
           {this.renderSelect("genreId", "Genre", this.state.genres)}
           {this.renderButton("Save")}
         </form>
-        {this.renderMyIngredients()}
+        <div className="content-ingredients">
+          <Popup ingredients={this.state.ingredients} />
+
+          {this.renderMyIngredients()}
+        </div>
       </div>
     );
   }
   renderMyIngredients() {
     if (this.state.myIngredients.length > 0)
       return (
-        <div className="content-ingredients">
+        <div>
           <MyIngredients
             ingredients={this.state.myIngredients}
             onAddQuantity={this.handelAddQuantity}

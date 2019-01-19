@@ -53,6 +53,14 @@ const receipts = [{
       {
         name: 'flour',
         quantity: 1
+      },
+      {
+        name: 'oil',
+        quantity: 1
+      },
+      {
+        name: 'yeast',
+        quantity: 1
       }
     ],
     genre: {
