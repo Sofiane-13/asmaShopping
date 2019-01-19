@@ -38,6 +38,9 @@ class Popup extends Component {
   handleSearch = query => {
     this.setState({ searchQuery: query, currentPage: 1 });
   };
+  handelSelectedIngredient = ingredient => {
+    console.log(ingredient);
+  };
   render() {
     const { currentPage, pageSize, searchQuery } = this.state;
     const { ingredients } = this.props;
@@ -85,7 +88,17 @@ class Popup extends Component {
               <tbody>
                 {data.map(ingredient => (
                   <tr key={ingredient.name}>
-                    <td>{ingredient.name}</td>
+                    <td>
+                      <button
+                        className="btn btn-primary"
+                        style={{ width: "100%", height: "100%" }}
+                        onClick={() =>
+                          this.handelSelectedIngredient(ingredient)
+                        }
+                      >
+                        {ingredient.name}
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
