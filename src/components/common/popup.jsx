@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import Modal from "react-awesome-modal";
 import Pagination from "./pagination";
 import { paginate } from "../utils/paginate";
+import SearchBox from "../searchBox";
 
 class Popup extends Component {
-  state = { visible: false, currentPage: 1, pageSize: 8 };
+  state = { visible: false, currentPage: 1, pageSize: 8, searchQuery: "" };
 
   openModal() {
     this.setState({
@@ -21,13 +22,24 @@ class Popup extends Component {
     this.setState({ currentPage: page });
   };
   getPagedData = ingredients => {
-    const { currentPage, pageSize } = this.state;
+    const { currentPage, pageSize, searchQuery } = this.state;
+    let filtered = ingredients;
 
-    ingredients = paginate(ingredients, currentPage, pageSize);
-    return { totalCount: ingredients.length, data: ingredients };
+    if (searchQuery)
+      filtered = ingredients.filter(m =>
+        m.name.toLowerCase().startsWith(searchQuery.toLowerCase())
+      );
+    const paginateIngredients = paginate(filtered, currentPage, pageSize);
+    return {
+      totalCount: paginateIngredients.length,
+      data: paginateIngredients
+    };
+  };
+  handleSearch = query => {
+    this.setState({ searchQuery: query, currentPage: 1 });
   };
   render() {
-    const { currentPage, pageSize } = this.state;
+    const { currentPage, pageSize, searchQuery } = this.state;
     const { ingredients } = this.props;
     const totalCount = ingredients.length;
 
@@ -62,6 +74,7 @@ class Popup extends Component {
               Close
             </button>
             <h1>Add ingredient</h1>
+            <SearchBox value={searchQuery} onChange={this.handleSearch} />
             {/* debut de la table */}
             <table className="table">
               <thead>
