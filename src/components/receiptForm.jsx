@@ -7,9 +7,12 @@ import { getIngredients } from "../services/fakeIngredientService";
 import MyIngredients from "./common/myIngredients";
 import "./receiptForm.css";
 import Popup from "./common/popup";
+import { addIngredient } from "../services/fakeReceiptService";
+
 class ReceiptForm extends Form {
   state = {
     data: {
+      _id: "",
       title: "title",
       genreId: "0"
     },
@@ -94,6 +97,14 @@ class ReceiptForm extends Form {
     );
     this.setState({ myIngredients });
   };
+  handelAddIngredient = (ingredientChoosed, quantity) => {
+    const { data } = this.state;
+    // console.log("Je suis vorte data", data);
+    // console.log("Je suis vorte ingredientChoosed", ingredientChoosed);
+
+    addIngredient(data._id, ingredientChoosed, quantity);
+    this.forceUpdate();
+  };
   render() {
     return (
       <div>
@@ -104,7 +115,10 @@ class ReceiptForm extends Form {
           {this.renderButton("Save")}
         </form>
         <div className="content-ingredients">
-          <Popup ingredients={this.state.ingredients} />
+          <Popup
+            ingredients={this.state.ingredients}
+            handelAddIngredient={this.handelAddIngredient}
+          />
 
           {this.renderMyIngredients()}
         </div>

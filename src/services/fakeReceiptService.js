@@ -97,9 +97,18 @@ export function saveReceipt(receipt) {
   deleteReceipt(receipt._id);
   receipts.push(receiptExesting);
 }
-export function addIngredient(id, ingredient) {
+export function addIngredient(id, ingredient, quantity) {
+  console.log("Id du addIngredient : ", id);
+  console.log("ingredient du addIngredient : ", ingredient);
+
   const receiptExesting = receipts.find(m => m._id === id);
-  receiptExesting.ingredients.push(ingredient);
+
+  console.log("receiptExesting du addIngredient", receiptExesting);
+  const ingredientname = ingredient.name;
+  receiptExesting.ingredients.push({
+    name: ingredientname,
+    quantity: quantity
+  });
 }
 // export function saveReceipt(receipt) {
 //   let receiptInDb = receipts.find(m => m._id === receipt._id) || {};
