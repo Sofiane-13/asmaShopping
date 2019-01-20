@@ -93,9 +93,14 @@ class ReceiptForm extends Form {
   };
 
   handelAddIngredient = (ingredientChoosed, quantity) => {
+    let myIngredients = [...this.state.data.myIngredients];
+    myIngredients.push({ name: ingredientChoosed.name, quantity });
+
     const { data } = this.state;
+    data.myIngredients = myIngredients;
+
     addIngredient(data._id, ingredientChoosed, quantity);
-    this.forceUpdate();
+    this.setState({ data });
   };
   handleChangeGenre(e) {
     this.setState({
@@ -109,7 +114,7 @@ class ReceiptForm extends Form {
   }
   render() {
     const { category, data } = this.state;
-
+    console.log(data);
     return (
       <div>
         <h1>Receipt Form</h1>
