@@ -13,24 +13,14 @@ class ReceiptForm extends Form {
   state = {
     data: {
       _id: "",
-      title: "title",
+      title: "",
+      myIngredients: [],
       genreId: "0"
     },
     category: "",
-    myIngredients: [],
     genres: [],
     ingredients: [],
     errors: {}
-  };
-
-  schema = {
-    _id: Joi.string(),
-    title: Joi.string()
-      .required()
-      .label("Title"),
-    genreId: Joi.string()
-      .required()
-      .label("Genre")
   };
 
   populateGenres() {
@@ -44,10 +34,14 @@ class ReceiptForm extends Form {
       if (receiptId === "new") return;
 
       const receipt = getReceipt(receiptId);
-      this.setState({ data: this.mapToViewModel(receipt) });
+      console.log("Montre moi reveipt dans popReceip:", receipt);
 
-      const myIngredients = receipt.ingredients;
-      this.setState({ myIngredients });
+      const data = this.state.data;
+      data.myIngredients = receipt.ingredients;
+      data._id = receipt._id;
+      data.title = receipt.title;
+      data.genreId = receipt.genre._id;
+      this.setState({ data });
     } catch (ex) {
       if (ex.response && ex.response.status === 404)
         this.props.history.replace("/not-found");
@@ -64,72 +58,75 @@ class ReceiptForm extends Form {
     this.populateAllIngredient();
   }
 
-  mapToViewModel(receipt) {
-    return {
-      _id: receipt._id,
-      title: receipt.title,
-      genreId: receipt.genre._id
-    };
-  }
-
   doSubmit = () => {
     saveReceipt(this.state.data);
     // this.props.history.push("/movies");
   };
   handelAddQuantity = ingredient => {
-    const myIngredients = [...this.state.myIngredients];
+    const myIngredients = [...this.state.data.myIngredients];
     const index = myIngredients.indexOf(ingredient);
 
     myIngredients[index] = { ...myIngredients[index] };
     myIngredients[index].quantity++;
-    this.setState({ myIngredients });
+
+    const data = this.state.data;
+    data.myIngredients = myIngredients;
+    this.setState({ data });
   };
   handelRemoveQuantity = ingredient => {
-    const myIngredients = [...this.state.myIngredients];
+    const myIngredients = [...this.state.data.myIngredients];
     const index = myIngredients.indexOf(ingredient);
 
     myIngredients[index] = { ...myIngredients[index] };
     if (myIngredients[index].quantity > 0) myIngredients[index].quantity--;
-    this.setState({ myIngredients });
+
+    const data = this.state.data;
+    data.myIngredients = myIngredients;
+    this.setState({ data });
   };
   handelonDelete = ingredient => {
-    const myIngredients = this.state.myIngredients.filter(
+    const myIngredients = this.state.data.myIngredients.filter(
       m => m !== ingredient
     );
-    this.setState({ myIngredients });
+    const data = this.state.data;
+    data.myIngredients = myIngredients;
+    this.setState({ data });
   };
+
   handelAddIngredient = (ingredientChoosed, quantity) => {
     const { data } = this.state;
-    // console.log("Je suis vorte data", data);
-    // console.log("Je suis vorte ingredientChoosed", ingredientChoosed);
-
+    console.log("MMMMONNN ID: ", data._id);
     addIngredient(data._id, ingredientChoosed, quantity);
     this.forceUpdate();
   };
   handleChangeGenre(e) {
-    //console.log(event.target.value);
-    //const genre = event.target.value;
-    //const value = event.target.value;
-    // this.setState({ category: result });
-    // console.log(this.state.category);
     this.setState({
       category: e.target.value
     });
   }
+  handleChangeTitle(e) {
+    const data = this.state.data;
+    data.title = e.target.value;
+    this.setState({ data });
+  }
   render() {
-    const { category } = this.state;
+    const { category, data } = this.state;
     console.log(category);
+    console.log("data dans render", data);
+
     return (
       <div>
         <h1>Receipt Form</h1>
-        {/* <form onSubmit={this.handleSubmit}>
-          {this.renderInput("title", "Title")}
-          {this.renderSelect("genreId", "Genre", this.state.genres)}
-          {this.renderButton("Save")}
-        </form> */}
+
         <div className="form-group">
           <label htmlFor="Title">Title</label>
-          <input name="Title" id="Title" className="form-control" />
+          <input
+            name="Title"
+            id="Title"
+            className="form-control"
+            value={this.state.data.title}
+            onChange={this.handleChangeTitle.bind(this)}
+          />
         </div>
         <div className="form-group">
           <label htmlFor="Genre">Genre</label>
@@ -139,7 +136,7 @@ class ReceiptForm extends Form {
             className="form-control"
           >
             <option value="" />
-            {this.state.ingredients.map(option => (
+            {this.state.genres.map(option => (
               <option key={option._id} value={option._id}>
                 {option.name}
               </option>
@@ -158,11 +155,11 @@ class ReceiptForm extends Form {
     );
   }
   renderMyIngredients() {
-    if (this.state.myIngredients.length > 0)
+    if (this.state.data.myIngredients.length > 0)
       return (
         <div>
           <MyIngredients
-            ingredients={this.state.myIngredients}
+            ingredients={this.state.data.myIngredients}
             onAddQuantity={this.handelAddQuantity}
             onRemoveQuantity={this.handelRemoveQuantity}
             onDelete={this.handelonDelete}
