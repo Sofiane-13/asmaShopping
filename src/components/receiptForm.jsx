@@ -16,6 +16,7 @@ class ReceiptForm extends Form {
       title: "title",
       genreId: "0"
     },
+    category: "",
     myIngredients: [],
     genres: [],
     ingredients: [],
@@ -105,15 +106,46 @@ class ReceiptForm extends Form {
     addIngredient(data._id, ingredientChoosed, quantity);
     this.forceUpdate();
   };
+  handleChangeGenre(e) {
+    //console.log(event.target.value);
+    //const genre = event.target.value;
+    //const value = event.target.value;
+    // this.setState({ category: result });
+    // console.log(this.state.category);
+    this.setState({
+      category: e.target.value
+    });
+  }
   render() {
+    const { category } = this.state;
+    console.log(category);
     return (
       <div>
         <h1>Receipt Form</h1>
-        <form onSubmit={this.handleSubmit}>
+        {/* <form onSubmit={this.handleSubmit}>
           {this.renderInput("title", "Title")}
           {this.renderSelect("genreId", "Genre", this.state.genres)}
           {this.renderButton("Save")}
-        </form>
+        </form> */}
+        <div className="form-group">
+          <label htmlFor="Title">Title</label>
+          <input name="Title" id="Title" className="form-control" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="Genre">Genre</label>
+          <select
+            value={this.state.category}
+            onChange={this.handleChangeGenre.bind(this)}
+            className="form-control"
+          >
+            <option value="" />
+            {this.state.ingredients.map(option => (
+              <option key={option._id} value={option._id}>
+                {option.name}
+              </option>
+            ))}
+          </select>
+        </div>
         <div className="content-ingredients">
           <Popup
             ingredients={this.state.ingredients}
