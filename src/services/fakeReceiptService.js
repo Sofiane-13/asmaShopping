@@ -98,12 +98,8 @@ export function saveReceipt(receipt) {
   receipts.push(receiptExesting);
 }
 export function addIngredient(id, ingredient, quantity) {
-  console.log("Id du addIngredient : ", id);
-  console.log("ingredient du addIngredient : ", ingredient);
-
   const receiptExesting = receipts.find(m => m._id === id);
 
-  console.log("receiptExesting du addIngredient", receiptExesting);
   const ingredientname = ingredient.name;
   receiptExesting.ingredients.push({
     name: ingredientname,

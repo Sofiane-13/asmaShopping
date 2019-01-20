@@ -34,7 +34,6 @@ class ReceiptForm extends Form {
       if (receiptId === "new") return;
 
       const receipt = getReceipt(receiptId);
-      console.log("Montre moi reveipt dans popReceip:", receipt);
 
       const data = this.state.data;
       data.myIngredients = receipt.ingredients;
@@ -95,7 +94,6 @@ class ReceiptForm extends Form {
 
   handelAddIngredient = (ingredientChoosed, quantity) => {
     const { data } = this.state;
-    console.log("MMMMONNN ID: ", data._id);
     addIngredient(data._id, ingredientChoosed, quantity);
     this.forceUpdate();
   };
@@ -111,8 +109,6 @@ class ReceiptForm extends Form {
   }
   render() {
     const { category, data } = this.state;
-    console.log(category);
-    console.log("data dans render", data);
 
     return (
       <div>

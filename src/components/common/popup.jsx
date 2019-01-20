@@ -3,6 +3,8 @@ import Modal from "react-awesome-modal";
 import Pagination from "./pagination";
 import { paginate } from "../utils/paginate";
 import SearchBox from "../searchBox";
+import TableToSelect from "./tableToSelect";
+import QuantityManager from "./quantityMannager";
 class Popup extends Component {
   state = {
     visible: false,
@@ -109,62 +111,23 @@ class Popup extends Component {
               <h6>
                 <b>Quantity :</b>
               </h6>
-              <div style={{ marginLeft: "5px" }}>
-                <button
-                  onClick={this.onRemoveQuantity}
-                  type="button"
-                  className="btn btn-primary"
-                  style={{ margin: "5px" }}
-                >
-                  -
-                </button>
-                {quantity}
-                <button
-                  onClick={this.onAddQuantity}
-                  type="button"
-                  className="btn btn-primary"
-                  style={{ margin: "5px" }}
-                >
-                  +
-                </button>
-              </div>
+              <QuantityManager
+                quantity={quantity}
+                onRemoveQuantity={this.onRemoveQuantity}
+                onAddQuantity={this.onAddQuantity}
+              />
               <SearchBox value={searchQuery} onChange={this.handleSearch} />
-              {/* debut de la table */}
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Ingredients</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.map(ingredient => (
-                    <tr key={ingredient.name}>
-                      <td>
-                        <button
-                          className={
-                            ingredient === ingredientChoosed
-                              ? "btn btn-success"
-                              : "btn btn-danger"
-                          }
-                          style={{ width: "100%", height: "100%" }}
-                          onClick={() =>
-                            this.handelSelectedIngredient(ingredient)
-                          }
-                        >
-                          {ingredient.name}
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <TableToSelect
+                data={data}
+                ingredientChoosed={ingredientChoosed}
+                handelSelectedIngredient={this.handelSelectedIngredient}
+              />
               <Pagination
                 itemsCount={totalCount}
                 pageSize={pageSize}
                 currentPage={currentPage}
                 onPageChange={this.handlePageChange}
               />
-              {/* Fin de la table  */}
             </div>
             <button
               style={{ marginLeft: "10px" }}
