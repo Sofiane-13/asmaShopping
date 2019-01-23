@@ -25,3 +25,8 @@ export function getGenre(id) {
   const Genre = genres.filter(g => g._id === id);
   return Genre;
 }
+
+export function getGenreByName(name) {
+  const Genre = genres.filter(g => g.name == name);
+  return Genre;
+}

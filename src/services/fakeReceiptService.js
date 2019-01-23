@@ -87,19 +87,25 @@ export function getReceipts() {
 export function getReceipt(id) {
   return receipts.find(m => m._id === id);
 }
-export function saveReceipt(receipt) {
-  const receiptExesting = receipts.find(m => m._id === receipt._id);
-  const genre = genresAPI.getGenre(receipt.genreId);
-  receiptExesting.genre._id = receipt.genreId;
-  receiptExesting.genre.name = genre[0].name;
+export function saveReceipt(receipt, category) {
+  //console.log("Anvant : ", receipts);
+
+  const receiptExesting = getReceipt(receipt._id);
   receiptExesting.title = receipt.title;
+  const genre = genresAPI.getGenre(category);
+  console.log(genre);
+  receiptExesting.genre = genre[0];
+
+  receiptExesting.ingredients = receipt.myIngredients;
 
   deleteReceipt(receipt._id);
   receipts.push(receiptExesting);
+  //console.log("Apres : ", receipts);
+
 }
 export function addIngredient(id, ingredient, quantity) {
   const receiptExesting = receipts.find(m => m._id === id);
-  console.log("On addIngredient", id, "   ", ingredient, "   ", quantity);
+  // console.log("On addIngredient", id, "   ", ingredient, "   ", quantity);
   const ingredientname = ingredient.name;
   receiptExesting.ingredients.push({
     name: ingredientname,

@@ -57,7 +57,7 @@ class ReceiptForm extends Form {
   }
 
   doSubmit = () => {
-    saveReceipt(this.state.data);
+    saveReceipt(this.state.data, this.state.category);
     // this.props.history.push("/movies");
   };
   handelAddQuantity = ingredient => {
@@ -103,7 +103,7 @@ class ReceiptForm extends Form {
       const { data } = this.state;
       data.myIngredients = myIngredients;
 
-      addIngredient(data._id, ingredientChoosed, quantity);
+      //addIngredient(data._id, ingredientChoosed, quantity);
       this.setState({ data });
     } else {
       alert("Ingredient already exists !");
@@ -121,7 +121,6 @@ class ReceiptForm extends Form {
   }
   render() {
     const { category, data } = this.state;
-    console.log(data);
     return (
       <div>
         <h1>Receipt Form</h1>
@@ -158,6 +157,9 @@ class ReceiptForm extends Form {
 
           {this.renderMyIngredients()}
         </div>
+        <button className="btn btn-success" onClick={() => this.doSubmit()}>
+          Save
+        </button>
       </div>
     );
   }

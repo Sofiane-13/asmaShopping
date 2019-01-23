@@ -15,7 +15,7 @@ class Receipts extends Component {
   async componentDidMount() {
     const receipts = getReceipts();
     // const genres = [{ _id: "", name: "All Genres" }, ...data];
-
+    // console.log(receipts);
     // const { data: movies } = await getMovies();
     this.setState({ receipts });
   }
@@ -30,6 +30,7 @@ class Receipts extends Component {
 
   render() {
     const { receipts, sortColumn } = this.state;
+    // console.log(receipts);
     return (
       <div>
         <h1>Receipts</h1>
