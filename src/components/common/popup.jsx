@@ -107,6 +107,7 @@ class Popup extends Component {
               >
                 Close
               </button>
+
               <h1>Add ingredients</h1>
               <h6>
                 <b>Quantity :</b>

@@ -1,5 +1,4 @@
 import React from "react";
-import Joi from "joi-browser";
 import Form from "./common/form";
 import { getGenres } from "../services/fakeGenreService";
 import { getReceipt, saveReceipt } from "../services/fakeReceiptService";
@@ -94,13 +93,21 @@ class ReceiptForm extends Form {
 
   handelAddIngredient = (ingredientChoosed, quantity) => {
     let myIngredients = [...this.state.data.myIngredients];
-    myIngredients.push({ name: ingredientChoosed.name, quantity });
+    const exestingIngredient = myIngredients.filter(
+      m => m.name == ingredientChoosed.name
+    );
 
-    const { data } = this.state;
-    data.myIngredients = myIngredients;
+    if (exestingIngredient.length == 0) {
+      myIngredients.push({ name: ingredientChoosed.name, quantity });
 
-    addIngredient(data._id, ingredientChoosed, quantity);
-    this.setState({ data });
+      const { data } = this.state;
+      data.myIngredients = myIngredients;
+
+      addIngredient(data._id, ingredientChoosed, quantity);
+      this.setState({ data });
+    } else {
+      alert("Ingredient already exists !");
+    }
   };
   handleChangeGenre(e) {
     this.setState({
@@ -118,7 +125,6 @@ class ReceiptForm extends Form {
     return (
       <div>
         <h1>Receipt Form</h1>
-
         <div className="form-group">
           <label htmlFor="Title">Title</label>
           <input

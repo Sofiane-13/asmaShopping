@@ -6,6 +6,7 @@ import Receipts from "./components/receipts";
 import NavBar from "./components/navBar";
 import ProtectedRoute from "./components/common/protectedRoute";
 import ReceiptForm from "./components/receiptForm";
+import ShoppingList from "./components/shoppingList";
 
 class App extends Component {
   render() {
@@ -17,8 +18,9 @@ class App extends Component {
             <Route path="/home" component={Home} />
             <ProtectedRoute path="/receipts/:id" component={ReceiptForm} />
             <Route path="/receipts" component={Receipts} />
-          </Switch>
-        </main>
+            <Route path="/shoppingList" component={ShoppingList} />
+          </Switch>{" "}
+        </main>{" "}
       </React.Fragment>
     );
   }
