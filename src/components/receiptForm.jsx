@@ -1,7 +1,11 @@
 import React from "react";
 import Form from "./common/form";
 import { getGenres, getGenre } from "../services/fakeGenreService";
-import { getReceipt, saveReceipt } from "../services/fakeReceiptService";
+import {
+  getReceipt,
+  saveReceipt,
+  getReceipts
+} from "../services/fakeReceiptService";
 import { getIngredients } from "../services/fakeIngredientService";
 import MyIngredients from "./common/myIngredients";
 import "./receiptForm.css";
@@ -67,6 +71,8 @@ class ReceiptForm extends Form {
 
   doSubmit = () => {
     saveReceipt(this.state.data, this.state.category);
+    const receipts = getReceipts();
+    console.log("from submit from", receipts);
     // this.props.history.push("/movies");
   };
   handelAddQuantity = ingredient => {

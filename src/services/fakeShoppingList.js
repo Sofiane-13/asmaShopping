@@ -12,7 +12,6 @@ export function getIngredient(name) {
 }
 
 export function addingToShoppingListe(receipt) {
-    console.log("Etat avant ajout :", listShopping);
     const ingredientToAdd = receipt.ingredients;
     let i;
     for (i = 0; i < ingredientToAdd.length; i++) {
@@ -33,7 +32,6 @@ export function addingToShoppingListe(receipt) {
             listShopping.push(newIngredient);
         }
     }
-    console.log("Etat apres ajout :", listShopping);
 
 
 }
@@ -42,18 +40,9 @@ export function removingFromShoppingList(receipt) {
     const ingredientToRemove = receipt.ingredients;
     let i;
     for (i = 0; i < ingredientToRemove.length; i++) {
-        // console.log("ingredientToRemove :", ingredientToRemove);
         var ingredientExesting = getIngredient(ingredientToRemove[i].name);
-        console.log("ingredientExesting :", ingredientExesting);
-        console.log("*******************************");
-
 
         if (typeof ingredientExesting !== 'undefined') {
-            console.log("ingredientExesting.quantity", ingredientExesting.quantity);
-            console.log("ingredientToRemove[i].quantity", ingredientToRemove[i].quantity);
-            console.log("*******************************");
-
-
             ingredientExesting.quantity = ingredientExesting.quantity - ingredientToRemove[i].quantity;
             deleteIngredient(ingredientToRemove[i].name);
 
@@ -66,7 +55,6 @@ export function removingFromShoppingList(receipt) {
             }
         }
     }
-    console.log("Etat apres delete :", listShopping);
 }
 
 export function deleteIngredient(name) {

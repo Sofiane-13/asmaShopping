@@ -19,14 +19,14 @@ class Receipts extends Component {
 
   async componentDidMount() {
     const receipts = getReceipts();
-    // const genres = [{ _id: "", name: "All Genres" }, ...data];
-    // console.log(receipts);
-    // const { data: movies } = await getMovies();
+    console.log(receipts);
+
     this.setState({ receipts });
   }
 
   handleLike = receipt => {
     const receipts = [...this.state.receipts];
+    // console.log(receipts);
     const index = receipts.indexOf(receipt);
     receipts[index] = { ...receipts[index] };
 
@@ -36,7 +36,6 @@ class Receipts extends Component {
       removingFromShoppingList(receipt);
     }
     receipts[index].liked = !receipts[index].liked;
-    console.log(receipt);
     updateLike(receipt._id);
     this.setState({ receipts });
   };
