@@ -15,12 +15,29 @@ const receipts = [{
     genre: {
       _id: "5b21ca3eeb7f6fbccd471818",
       name: "receipt"
-    }
+    },
+
   },
   {
     _id: "5b21ca3eeb7f6fbccd471816",
     title: "Ratatouille",
-    ingredients: [],
+    ingredients: [{
+        name: 'water',
+        quantity: 1
+      },
+      {
+        name: 'flour',
+        quantity: 1
+      },
+      {
+        name: 'oil',
+        quantity: 1
+      },
+      {
+        name: 'yeast',
+        quantity: 1
+      }
+    ],
     genre: {
       _id: "5b21ca3eeb7f6fbccd471818",
       name: "receipt"
@@ -92,7 +109,7 @@ export function saveReceipt(receipt, category) {
 
   const receiptExesting = getReceipt(receipt._id);
   receiptExesting.title = receipt.title;
-  const genre = genresAPI.getGenre(category);
+  const genre = genresAPI.getGenreByName(category);
   console.log(genre);
   receiptExesting.genre = genre[0];
 
@@ -111,6 +128,13 @@ export function addIngredient(id, ingredient, quantity) {
     name: ingredientname,
     quantity: quantity
   });
+}
+export function updateLike(id) {
+  const receiptExesting = receipts.find(m => m._id === id);
+  receiptExesting.liked = !receiptExesting.liked;
+
+  deleteReceipt(id);
+  receipts.push(receiptExesting);
 }
 // export function saveReceipt(receipt) {
 //   let receiptInDb = receipts.find(m => m._id === receipt._id) || {};

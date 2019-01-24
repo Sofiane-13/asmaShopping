@@ -130,6 +130,7 @@ class ReceiptForm extends Form {
   }
   render() {
     const { category, data } = this.state;
+
     return (
       <div>
         <h1>Receipt Form</h1>
@@ -150,9 +151,14 @@ class ReceiptForm extends Form {
             onChange={this.handleChangeGenre.bind(this)}
             className="form-control"
           >
-            <option value={this.state.category}>{this.state.category}</option>
+            <option
+              value={this.state.category}
+              className="p-3 mb-2 bg-primary text-white"
+            >
+              {this.state.category}
+            </option>
             {this.state.genres.map(option => (
-              <option key={option._id} value={option._id}>
+              <option key={option._id} value={option.name}>
                 {option.name}
               </option>
             ))}

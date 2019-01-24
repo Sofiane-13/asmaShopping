@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import ReceiptsTable from "./receiptsTable";
-import { getReceipts } from "../services/fakeReceiptService";
+import { getReceipts, updateLike } from "../services/fakeReceiptService";
+import {
+  addingToShoppingListe,
+  removingFromShoppingList
+} from "../services/fakeShoppingList";
+
 class Receipts extends Component {
   state = {
     receipts: [],
@@ -24,13 +29,20 @@ class Receipts extends Component {
     const receipts = [...this.state.receipts];
     const index = receipts.indexOf(receipt);
     receipts[index] = { ...receipts[index] };
+
+    if (!receipts[index].liked) {
+      addingToShoppingListe(receipt);
+    } else {
+      removingFromShoppingList(receipt);
+    }
     receipts[index].liked = !receipts[index].liked;
+    console.log(receipt);
+    updateLike(receipt._id);
     this.setState({ receipts });
   };
 
   render() {
     const { receipts, sortColumn } = this.state;
-    // console.log(receipts);
     return (
       <div>
         <h1>Receipts</h1>
