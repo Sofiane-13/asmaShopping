@@ -1,6 +1,6 @@
 import React from "react";
 import Form from "./common/form";
-import { getGenres } from "../services/fakeGenreService";
+import { getGenres, getGenre } from "../services/fakeGenreService";
 import { getReceipt, saveReceipt } from "../services/fakeReceiptService";
 import { getIngredients } from "../services/fakeIngredientService";
 import MyIngredients from "./common/myIngredients";
@@ -26,6 +26,12 @@ class ReceiptForm extends Form {
     const genres = getGenres();
     this.setState({ genres });
   }
+  populatecategory(id) {
+    const genre = getGenre(id);
+    const category = genre[0].name;
+
+    this.setState({ category });
+  }
 
   populateReceipts() {
     try {
@@ -39,6 +45,9 @@ class ReceiptForm extends Form {
       data._id = receipt._id;
       data.title = receipt.title;
       data.genreId = receipt.genre._id;
+
+      this.populatecategory(data.genreId);
+
       this.setState({ data });
     } catch (ex) {
       if (ex.response && ex.response.status === 404)
@@ -141,7 +150,7 @@ class ReceiptForm extends Form {
             onChange={this.handleChangeGenre.bind(this)}
             className="form-control"
           >
-            <option value="" />
+            <option value={this.state.category}>{this.state.category}</option>
             {this.state.genres.map(option => (
               <option key={option._id} value={option._id}>
                 {option.name}
