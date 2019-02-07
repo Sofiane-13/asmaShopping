@@ -5,6 +5,9 @@ import {
   addingToShoppingListe,
   removingFromShoppingList
 } from "../services/fakeShoppingList";
+import SearchBox from "./searchBox";
+import Pagination from "./common/pagination";
+import { paginate } from "../components/utils/paginate";
 
 class Receipts extends Component {
   state = {
@@ -40,17 +43,57 @@ class Receipts extends Component {
     this.setState({ receipts });
   };
 
+  handleSearch = query => {
+    this.setState({ searchQuery: query, currentPage: 1 });
+  };
+
+  getPagedData = receipts => {
+    const { currentPage, pageSize, searchQuery } = this.state;
+    let filtered = receipts;
+    console.log("cest moi", receipts);
+    if (searchQuery)
+      filtered = receipts.filter(m =>
+        m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+      );
+    const paginateIngredients = paginate(filtered, currentPage, pageSize);
+    return {
+      totalCount: paginateIngredients.length,
+      data: paginateIngredients,
+      filtered: filtered
+    };
+  };
+
+  handlePageChange = page => {
+    this.setState({ currentPage: page });
+  };
+
   render() {
-    const { receipts, sortColumn } = this.state;
+    const {
+      receipts,
+      sortColumn,
+      searchQuery,
+      pageSize,
+      currentPage
+    } = this.state;
+    const { data, filtered } = this.getPagedData(receipts);
+    const totalCount = filtered.length;
+
     return (
       <div>
         <h1>Receipts</h1>
+        <SearchBox value={searchQuery} onChange={this.handleSearch} />
         <ReceiptsTable
-          receipts={receipts}
+          receipts={data}
           sortColumn={sortColumn}
           onLike={this.handleLike}
           onDelete={this.handleDelete}
           onSort={this.handleSort}
+        />
+        <Pagination
+          itemsCount={totalCount}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onPageChange={this.handlePageChange}
         />
       </div>
     );
