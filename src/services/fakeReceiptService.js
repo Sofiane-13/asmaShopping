@@ -98,23 +98,57 @@ const receipts = [{
 ];
 
 export function getReceipts() {
-  return receipts;
+  // return receipts;
+  console.log('je ss ds get');
+
+  // fetch('http://localhost:3000/api/receipts').then(results => {
+  //   console.log('Moi ', results);
+  //   return results.json();
+  // }).then(data => {
+  //   console.log(data);
+  //   return data;
+  // });
+
 }
 
 export function getReceipt(id) {
-  return receipts.find(m => m._id === id);
+  console.log('je ss ds get ID', id);
+  const url = 'http://localhost:3000/api/receipts/';
+  console.log(url);
+
+  // fetch('http://localhost:3000/api/receipts/').then(results => {
+  //   return results.json();
+  // }).then(data => {
+  //   console.log(data);
+  //   return data;
+  // });
 }
 export function saveReceipt(receipt, category) {
 
   const receiptExesting = getReceipt(receipt._id);
-  receiptExesting.title = receipt.title;
   const genre = genresAPI.getGenreByName(category);
-  receiptExesting.genre = genre[0];
+  console.log(receiptExesting);
+  console.log(receipt);
 
-  receiptExesting.ingredients = receipt.myIngredients;
+  // if (typeof receiptExesting === 'undefined') {
 
-  deleteReceipt(receipt._id);
-  receipts.push(receiptExesting);
+  //   const myreceipt = {
+  //     _id: "1234",
+  //     title: receipt.title,
+  //     ingredients: receipt.myIngredients,
+  //     genre: genre[0]
+  //   }
+  //   receipts.push(myreceipt);
+  // } else {
+
+  //   receiptExesting.title = receipt.title;
+  //   receiptExesting.genre = genre[0];
+
+  //   receiptExesting.ingredients = receipt.myIngredients;
+
+  //   deleteReceipt(receipt._id);
+  //   receipts.push(receiptExesting);
+  // }
 
 }
 export function addIngredient(id, ingredient, quantity) {

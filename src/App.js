@@ -15,10 +15,10 @@ class App extends Component {
         <main className="container">
           <NavBar />
           <Switch>
-            <Route path="/home" component={Home} />
             <ProtectedRoute path="/receipts/:id" component={ReceiptForm} />
             <Route path="/receipts" component={Receipts} />
             <Route path="/shoppingList" component={ShoppingList} />
+            <Route path="/" component={Home} />
           </Switch>{" "}
         </main>{" "}
       </React.Fragment>

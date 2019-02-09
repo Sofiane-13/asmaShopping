@@ -13,7 +13,7 @@ class ReceiptsTable extends Component {
         <Link to={`/receipts/${receipt._id}`}>{receipt.title}</Link>
       )
     },
-    { path: "genre.name", label: "Genre" },
+    { path: "genre.title", label: "Genre" },
     {
       key: "like",
       content: receipt => (
@@ -36,12 +36,6 @@ class ReceiptsTable extends Component {
       </button>
     )
   };
-
-  //   constructor() {
-  //     super();
-  //     const user = auth.getCurrentUser();
-  //     if (user && user.isAdmin) this.columns.push(this.deleteColumn);
-  //   }
 
   render() {
     const { receipts, onSort, sortColumn } = this.props;

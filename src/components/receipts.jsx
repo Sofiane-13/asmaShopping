@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ReceiptsTable from "./receiptsTable";
-import { getReceipts, updateLike } from "../services/fakeReceiptService";
+import { updateLike } from "../services/fakeReceiptService";
 import {
   addingToShoppingListe,
   removingFromShoppingList
@@ -8,7 +8,8 @@ import {
 import SearchBox from "./searchBox";
 import Pagination from "./common/pagination";
 import { paginate } from "../components/utils/paginate";
-
+import { Link } from "react-router-dom";
+import { getReceipts } from "../httpServices/receiptServices";
 class Receipts extends Component {
   state = {
     receipts: [],
@@ -21,15 +22,14 @@ class Receipts extends Component {
   };
 
   async componentDidMount() {
-    const receipts = getReceipts();
-    console.log(receipts);
-
-    this.setState({ receipts });
+    // const receipts = await getReceipts();
+    // this.setState({ receipts });
+    const receipts = await getReceipts();
+    this.setState({ receipts: receipts.data });
   }
 
   handleLike = receipt => {
     const receipts = [...this.state.receipts];
-    // console.log(receipts);
     const index = receipts.indexOf(receipt);
     receipts[index] = { ...receipts[index] };
 
@@ -50,7 +50,6 @@ class Receipts extends Component {
   getPagedData = receipts => {
     const { currentPage, pageSize, searchQuery } = this.state;
     let filtered = receipts;
-    console.log("cest moi", receipts);
     if (searchQuery)
       filtered = receipts.filter(m =>
         m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
@@ -66,6 +65,9 @@ class Receipts extends Component {
   handlePageChange = page => {
     this.setState({ currentPage: page });
   };
+  handelNewReceipt() {
+    console.log("new clicked");
+  }
 
   render() {
     const {
@@ -81,6 +83,12 @@ class Receipts extends Component {
     return (
       <div>
         <h1>Receipts</h1>
+
+        <Link to={`/receipts/new`}>
+          {" "}
+          <button className="btn btn-primary">New</button>
+        </Link>
+
         <SearchBox value={searchQuery} onChange={this.handleSearch} />
         <ReceiptsTable
           receipts={data}
