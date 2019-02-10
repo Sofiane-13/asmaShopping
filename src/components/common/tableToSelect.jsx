@@ -12,7 +12,7 @@ class TableToSelect extends Component {
         </thead>
         <tbody>
           {data.map(ingredient => (
-            <tr key={ingredient.name}>
+            <tr key={ingredient.title}>
               <td>
                 <button
                   className={
@@ -23,7 +23,7 @@ class TableToSelect extends Component {
                   style={{ width: "100%", height: "100%" }}
                   onClick={() => handelSelectedIngredient(ingredient)}
                 >
-                  {ingredient.name}
+                  {ingredient.title}
                 </button>
               </td>
             </tr>

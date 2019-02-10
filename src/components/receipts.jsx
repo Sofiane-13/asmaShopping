@@ -35,18 +35,8 @@ class Receipts extends Component {
     myReceipt.liked = !myReceipt.liked;
     result = await putReceipts(myReceipt, myReceipt._id);
 
-    console.log(myReceipt);
-    // const index = receipts.indexOf(receipt);
-    // receipts[index] = { ...receipts[index] };
+    console.log(receipt);
 
-    // console.log("handleLike : ", receipts[index]);
-    // if (!receipts[index].liked) {
-    //   addingToShoppingListe(receipt);
-    // } else {
-    //   removingFromShoppingList(receipt);
-    // }
-    // receipts[index].liked = !receipts[index].liked;
-    // updateLike(receipt._id);
     this.setState({ data: myReceipt });
   };
 
@@ -72,9 +62,6 @@ class Receipts extends Component {
   handlePageChange = page => {
     this.setState({ currentPage: page });
   };
-  handelNewReceipt() {
-    console.log("new clicked");
-  }
 
   render() {
     const {
@@ -86,7 +73,6 @@ class Receipts extends Component {
     } = this.state;
     const { data, filtered } = this.getPagedData(receipts);
     const totalCount = filtered.length;
-    console.log("Receipts : ", receipts);
 
     return (
       <div>

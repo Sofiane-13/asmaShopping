@@ -9,7 +9,7 @@ class Popup extends Component {
   state = {
     visible: false,
     currentPage: 1,
-    pageSize: 4,
+    pageSize: 5,
     searchQuery: "",
     quantity: 0,
     ingredientChoosed: ""
@@ -35,7 +35,7 @@ class Popup extends Component {
 
     if (searchQuery)
       filtered = ingredients.filter(m =>
-        m.name.toLowerCase().startsWith(searchQuery.toLowerCase())
+        m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
       );
     const paginateIngredients = paginate(filtered, currentPage, pageSize);
     return {
@@ -99,11 +99,10 @@ class Popup extends Component {
           <div style={{ padding: "5px" }}>
             <div>
               <button
-                className="float-right"
+                className="float-right btn btn-dark"
                 value="Open"
                 onClick={() => this.closeModal()}
                 type="button"
-                className="btn btn-dark"
               >
                 Close
               </button>

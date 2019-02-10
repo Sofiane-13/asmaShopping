@@ -12,6 +12,7 @@ class MyIngredients extends Component {
       onRemoveQuantity,
       onDelete
     } = this.props;
+    console.log(ingredients);
     if (ingredients.length > 0)
       return (
         <table className="table">

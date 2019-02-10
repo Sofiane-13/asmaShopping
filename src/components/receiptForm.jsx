@@ -1,7 +1,8 @@
 import React from "react";
 import Form from "./common/form";
 import { getGenres, getGenre } from "../services/fakeGenreService";
-import { getIngredients } from "../services/fakeIngredientService";
+// import { getIngredients } from "../services/fakeIngredientService";
+import { getIngredient } from "../httpServices/ingredientServices";
 import MyIngredients from "./common/myIngredients";
 import "./receiptForm.css";
 import Popup from "./common/popup";
@@ -59,9 +60,9 @@ class ReceiptForm extends Form {
         this.props.history.replace("/not-found");
     }
   }
-  populateAllIngredient() {
-    const ingredients = getIngredients();
-    this.setState({ ingredients });
+  async populateAllIngredient() {
+    const ingredients = await getIngredient();
+    this.setState({ ingredients: ingredients.data });
   }
 
   componentDidMount() {
@@ -72,7 +73,6 @@ class ReceiptForm extends Form {
 
   doSubmit = async () => {
     let { data } = this.state;
-    console.log(data);
 
     let result;
     const receiptId = this.props.match.params.id;
@@ -117,13 +117,14 @@ class ReceiptForm extends Form {
 
   handelAddIngredient = (ingredientChoosed, quantity) => {
     let ingredients = [...this.state.data.ingredients];
+
     const exestingIngredient = ingredients.filter(
-      m => m.name == ingredientChoosed.name
+      m => m.name == ingredientChoosed.title
     );
 
     if (exestingIngredient.length == 0) {
       ingredients.push({
-        name: ingredientChoosed.name,
+        name: ingredientChoosed.title,
         quantity,
         unity: ingredientChoosed.unity
       });
