@@ -10,6 +10,8 @@ import Pagination from "./common/pagination";
 import { paginate } from "../components/utils/paginate";
 import { Link } from "react-router-dom";
 import { getReceipts } from "../httpServices/receiptServices";
+import { putReceipts } from "../httpServices/receiptServices";
+
 class Receipts extends Component {
   state = {
     receipts: [],
@@ -22,25 +24,30 @@ class Receipts extends Component {
   };
 
   async componentDidMount() {
-    // const receipts = await getReceipts();
-    // this.setState({ receipts });
     const receipts = await getReceipts();
     this.setState({ receipts: receipts.data });
   }
 
-  handleLike = receipt => {
-    const receipts = [...this.state.receipts];
-    const index = receipts.indexOf(receipt);
-    receipts[index] = { ...receipts[index] };
+  handleLike = async receipt => {
+    let result;
 
-    if (!receipts[index].liked) {
-      addingToShoppingListe(receipt);
-    } else {
-      removingFromShoppingList(receipt);
-    }
-    receipts[index].liked = !receipts[index].liked;
-    updateLike(receipt._id);
-    this.setState({ receipts });
+    const myReceipt = receipt;
+    myReceipt.liked = !myReceipt.liked;
+    result = await putReceipts(myReceipt, myReceipt._id);
+
+    console.log(myReceipt);
+    // const index = receipts.indexOf(receipt);
+    // receipts[index] = { ...receipts[index] };
+
+    // console.log("handleLike : ", receipts[index]);
+    // if (!receipts[index].liked) {
+    //   addingToShoppingListe(receipt);
+    // } else {
+    //   removingFromShoppingList(receipt);
+    // }
+    // receipts[index].liked = !receipts[index].liked;
+    // updateLike(receipt._id);
+    this.setState({ data: myReceipt });
   };
 
   handleSearch = query => {
@@ -79,6 +86,7 @@ class Receipts extends Component {
     } = this.state;
     const { data, filtered } = this.getPagedData(receipts);
     const totalCount = filtered.length;
+    console.log("Receipts : ", receipts);
 
     return (
       <div>

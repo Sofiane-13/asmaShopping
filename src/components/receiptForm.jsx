@@ -14,14 +14,15 @@ class ReceiptForm extends Form {
     data: {
       _id: "",
       title: "",
-      ingredients: [],
+      preparation: "",
+      personNum: 0,
+      cookingTime: 0,
+      love: false,
       genre: {
         title: "",
         genreId: ""
       },
-      preparation: "",
-      personNum: 0,
-      cookingTime: 0
+      ingredients: []
     },
     category: "",
     genres: [],
@@ -50,6 +51,7 @@ class ReceiptForm extends Form {
       data.cookingTime = receipt.cookingTime;
       data.personNum = receipt.personNum;
       data.preparation = receipt.preparation;
+      data.love = receipt.love;
 
       this.setState({ data });
     } catch (ex) {
@@ -70,6 +72,8 @@ class ReceiptForm extends Form {
 
   doSubmit = async () => {
     let { data } = this.state;
+    console.log(data);
+
     let result;
     const receiptId = this.props.match.params.id;
     if (receiptId === "new") {
