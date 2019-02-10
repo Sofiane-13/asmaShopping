@@ -1,26 +1,23 @@
 import React from "react";
 import Form from "./common/form";
 import { getGenres, getGenre } from "../services/fakeGenreService";
-import {
-  getReceipt,
-  saveReceipt,
-  getReceipts
-} from "../services/fakeReceiptService";
 import { getIngredients } from "../services/fakeIngredientService";
 import MyIngredients from "./common/myIngredients";
 import "./receiptForm.css";
 import Popup from "./common/popup";
 import { addIngredient } from "../services/fakeReceiptService";
 import { getReceiptsById } from "../httpServices/receiptServices";
-
+import { putReceipts } from "../httpServices/receiptServices";
+import { postReceipts } from "../httpServices/receiptServices";
 class ReceiptForm extends Form {
   state = {
     data: {
       _id: "",
       title: "",
-      myIngredients: [],
+      ingredients: [],
       genre: {
-        title: ""
+        title: "",
+        genreId: ""
       },
       preparation: "",
       personNum: 0,
@@ -44,8 +41,10 @@ class ReceiptForm extends Form {
 
       const { data: receipt } = await getReceiptsById(receiptId);
       const data = this.state.data;
-      data.myIngredients = receipt.ingredients;
-      data._id = receipt._id;
+
+      data._id = receiptId;
+      data.ingredients = receipt.ingredients;
+      data.genre.genreId = receipt.genre.genreId;
       data.title = receipt.title;
       data.genre = receipt.genre;
       data.cookingTime = receipt.cookingTime;
@@ -69,55 +68,65 @@ class ReceiptForm extends Form {
     this.populateAllIngredient();
   }
 
-  doSubmit = () => {
-    saveReceipt(this.state.data, this.state.category);
-    // const receipts = getReceipts();
-    // this.props.history.push("/movies");
+  doSubmit = async () => {
+    let { data } = this.state;
+    let result;
+    const receiptId = this.props.match.params.id;
+    if (receiptId === "new") {
+      delete data._id;
+
+      result = await postReceipts(data);
+    } else {
+      result = await putReceipts(this.state.data, this.state.data._id);
+    }
   };
   handelAddQuantity = ingredient => {
-    const myIngredients = [...this.state.data.myIngredients];
-    const index = myIngredients.indexOf(ingredient);
+    const ingredients = [...this.state.data.ingredients];
+    const index = ingredients.indexOf(ingredient);
 
-    myIngredients[index] = { ...myIngredients[index] };
-    myIngredients[index].quantity++;
+    ingredients[index] = { ...ingredients[index] };
+    ingredients[index].quantity++;
 
     const data = this.state.data;
-    data.myIngredients = myIngredients;
+    data.ingredients = ingredients;
     this.setState({ data });
   };
   handelRemoveQuantity = ingredient => {
-    const myIngredients = [...this.state.data.myIngredients];
-    const index = myIngredients.indexOf(ingredient);
+    const ingredients = [...this.state.data.ingredients];
+    const index = ingredients.indexOf(ingredient);
 
-    myIngredients[index] = { ...myIngredients[index] };
-    if (myIngredients[index].quantity > 0) myIngredients[index].quantity--;
+    ingredients[index] = { ...ingredients[index] };
+    if (ingredients[index].quantity > 0) ingredients[index].quantity--;
 
     const data = this.state.data;
-    data.myIngredients = myIngredients;
+    data.ingredients = ingredients;
     this.setState({ data });
   };
   handelonDelete = ingredient => {
-    const myIngredients = this.state.data.myIngredients.filter(
+    const ingredients = this.state.data.ingredients.filter(
       m => m !== ingredient
     );
     const data = this.state.data;
-    data.myIngredients = myIngredients;
+    data.ingredients = ingredients;
     this.setState({ data });
   };
 
   handelAddIngredient = (ingredientChoosed, quantity) => {
-    let myIngredients = [...this.state.data.myIngredients];
-    const exestingIngredient = myIngredients.filter(
+    let ingredients = [...this.state.data.ingredients];
+    const exestingIngredient = ingredients.filter(
       m => m.name == ingredientChoosed.name
     );
 
     if (exestingIngredient.length == 0) {
-      myIngredients.push({ name: ingredientChoosed.name, quantity });
+      ingredients.push({
+        name: ingredientChoosed.name,
+        quantity,
+        unity: ingredientChoosed.unity
+      });
 
       const { data } = this.state;
-      data.myIngredients = myIngredients;
+      data.ingredients = ingredients;
 
-      //addIngredient(data._id, ingredientChoosed, quantity);
       this.setState({ data });
     } else {
       alert("Ingredient already exists !");
@@ -127,7 +136,7 @@ class ReceiptForm extends Form {
     const { data, genres } = this.state;
     const myGenre = genres.find(g => g._id === e.target.value);
     data.genre.title = myGenre.name;
-    data.genre._id = myGenre._id;
+    data.genre.genreId = myGenre._id;
 
     this.setState({
       data
@@ -270,7 +279,7 @@ class ReceiptForm extends Form {
             handelAddIngredient={this.handelAddIngredient}
           />
 
-          {this.renderMyIngredients()}
+          {this.renderingredients()}
         </div>
         <button className="btn btn-success" onClick={() => this.doSubmit()}>
           Save
@@ -278,12 +287,12 @@ class ReceiptForm extends Form {
       </div>
     );
   }
-  renderMyIngredients() {
-    if (this.state.data.myIngredients.length > 0)
+  renderingredients() {
+    if (this.state.data.ingredients.length > 0)
       return (
         <div>
           <MyIngredients
-            ingredients={this.state.data.myIngredients}
+            ingredients={this.state.data.ingredients}
             onAddQuantity={this.handelAddQuantity}
             onRemoveQuantity={this.handelRemoveQuantity}
             onDelete={this.handelonDelete}

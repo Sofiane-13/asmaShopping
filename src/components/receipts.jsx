@@ -15,7 +15,7 @@ class Receipts extends Component {
     receipts: [],
     genres: [],
     currentPage: 1,
-    pageSize: 4,
+    pageSize: 6,
     searchQuery: "",
     selectedGenre: null,
     sortColumn: { path: "title", order: "asc" }

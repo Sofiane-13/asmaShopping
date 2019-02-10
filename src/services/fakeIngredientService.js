@@ -1,18 +1,25 @@
 export const ingredients = [{
     _id: "5b21ca3eeb7f6fbccd471818",
-    name: "flour"
+    name: "flour",
+    unity: "Kg"
   },
   {
     _id: "5b21ca3eeb7f6fbccd471820",
-    name: "water"
+    name: "water",
+    unity: "L"
+
   },
   {
     _id: "5b21ca3eeb7f6fbccd471814",
-    name: "milk"
+    name: "milk",
+    unity: "L"
+
   },
   {
     _id: "5b21ca3eeb7f6fbccd471815",
-    name: "egs"
+    name: "egs",
+    unity: "P"
+
   },
 
 ];

@@ -123,11 +123,11 @@ export function getReceipt(id) {
   //   return data;
   // });
 }
-export function saveReceipt(receipt, category) {
+export function saveReceipt(receipt) {
 
-  const receiptExesting = getReceipt(receipt._id);
-  const genre = genresAPI.getGenreByName(category);
-  console.log(receiptExesting);
+  // const receiptExesting = getReceipt(receipt._id);
+  // const genre = genresAPI.getGenreByName(category);
+  // console.log(receiptExesting);
   console.log(receipt);
 
   // if (typeof receiptExesting === 'undefined') {

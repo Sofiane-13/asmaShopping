@@ -12,3 +12,11 @@ export function getReceipts() {
 export function getReceiptsById(id) {
     return http.get(apiUrl + "/receipts/" + id);
 }
+
+export function putReceipts(data, ) {
+    return http.put(apiUrl + "/receipts/" + data._id, data);
+}
+
+export function postReceipts(data) {
+    return http.post(apiUrl + "/receipts/", data);
+}
