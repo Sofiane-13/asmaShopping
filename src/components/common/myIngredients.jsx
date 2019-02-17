@@ -12,7 +12,6 @@ class MyIngredients extends Component {
       onRemoveQuantity,
       onDelete
     } = this.props;
-    console.log(ingredients);
     if (ingredients.length > 0)
       return (
         <table className="table">
@@ -25,8 +24,8 @@ class MyIngredients extends Component {
           </thead>
           <tbody>
             {ingredients.map(ingredient => (
-              <tr key={ingredient.name}>
-                <td>{ingredient.name}</td>
+              <tr key={ingredient.title}>
+                <td>{ingredient.title}</td>
                 <td>
                   <div>
                     <button

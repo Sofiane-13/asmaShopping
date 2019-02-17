@@ -25,7 +25,6 @@ class ReceiptForm extends Form {
       },
       ingredients: []
     },
-    category: "",
     genres: [],
     ingredients: [],
     errors: {}
@@ -117,16 +116,16 @@ class ReceiptForm extends Form {
 
   handelAddIngredient = (ingredientChoosed, quantity) => {
     let ingredients = [...this.state.data.ingredients];
-
     const exestingIngredient = ingredients.filter(
-      m => m.name == ingredientChoosed.title
+      m => m.idIngredient == ingredientChoosed._id
     );
 
     if (exestingIngredient.length == 0) {
       ingredients.push({
         name: ingredientChoosed.title,
         quantity,
-        unity: ingredientChoosed.unity
+        unity: ingredientChoosed.unity,
+        idIngredient: ingredientChoosed._id
       });
 
       const { data } = this.state;
@@ -168,7 +167,8 @@ class ReceiptForm extends Form {
     this.setState({ data });
   }
   render() {
-    const { category, data } = this.state;
+    const { data, ingredients } = this.state;
+
     return (
       <div>
         <h1>Receipt Form</h1>

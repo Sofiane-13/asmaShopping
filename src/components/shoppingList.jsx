@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { getListShopping } from "../services/fakeShoppingList";
+import { getShoppingList } from "../httpServices/shoppingListServices";
 
 class ShoppingList extends Component {
   state = { listShopping: [] };
   async componentDidMount() {
-    const listShopping = getListShopping();
-    this.setState({ listShopping });
+    const myList = await getShoppingList();
+    this.setState({ listShopping: myList.data });
   }
   render() {
     const data = this.state.listShopping;
@@ -16,13 +16,15 @@ class ShoppingList extends Component {
           <tr>
             <th scope="col">Ingredients</th>
             <th scope="col">Quantity</th>
+            <th scope="col">Unity</th>
           </tr>
         </thead>
         <tbody>
           {data.map(ingredient => (
-            <tr key={ingredient.name}>
-              <td>{ingredient.name}</td>
+            <tr key={ingredient._id}>
+              <td>{ingredient.title}</td>
               <td>{ingredient.quantity}</td>
+              <td>{ingredient.unity}</td>
             </tr>
           ))}
         </tbody>

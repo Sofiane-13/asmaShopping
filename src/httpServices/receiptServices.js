@@ -13,7 +13,7 @@ export function getReceiptsById(id) {
     return http.get(apiUrl + "/receipts/" + id);
 }
 
-export function putReceipts(data, ) {
+export function putReceipts(data) {
     return http.put(apiUrl + "/receipts/" + data._id, data);
 }
 

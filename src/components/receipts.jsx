@@ -11,6 +11,7 @@ import { paginate } from "../components/utils/paginate";
 import { Link } from "react-router-dom";
 import { getReceipts } from "../httpServices/receiptServices";
 import { putReceipts } from "../httpServices/receiptServices";
+import { postShoppingList } from "../httpServices/shoppingListServices";
 
 class Receipts extends Component {
   state = {
@@ -30,12 +31,14 @@ class Receipts extends Component {
 
   handleLike = async receipt => {
     let result;
+    let resultshoppingList;
 
     const myReceipt = receipt;
-    myReceipt.liked = !myReceipt.liked;
-    result = await putReceipts(myReceipt, myReceipt._id);
 
-    console.log(receipt);
+    resultshoppingList = await postShoppingList(myReceipt, myReceipt.liked);
+
+    myReceipt.liked = !myReceipt.liked;
+    result = await putReceipts(myReceipt);
 
     this.setState({ data: myReceipt });
   };
