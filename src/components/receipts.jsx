@@ -76,7 +76,6 @@ class Receipts extends Component {
     } = this.state;
     const { data, filtered } = this.getPagedData(receipts);
     const totalCount = filtered.length;
-
     return (
       <div>
         <h1>Receipts</h1>

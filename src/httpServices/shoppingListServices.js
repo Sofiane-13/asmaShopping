@@ -17,9 +17,9 @@ export function putShoppingList(data) {
 
 export async function postShoppingList(data, liked) {
     let allIngredients = await getShoppingList();
-    // allIngredients.data.values();
-    const iterator = data.ingredients.values();
 
+    const iterator = data.ingredients.values();
+    let i = 0;
     for (const value of iterator) {
         const exestingIngredient = allIngredients.data.filter(
             i => i.idIngredient == value.idIngredient
@@ -47,10 +47,12 @@ export async function postShoppingList(data, liked) {
 
             } else {
                 delete(value._id);
-                return http.post(apiUrl + "/shoppingList/", value);
+                http.post(apiUrl + "/shoppingList/", value);
             }
         }
+
     }
+
 }
 
 export async function deleteShoppingList(data) {

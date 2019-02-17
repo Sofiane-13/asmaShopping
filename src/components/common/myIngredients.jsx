@@ -24,7 +24,7 @@ class MyIngredients extends Component {
           </thead>
           <tbody>
             {ingredients.map(ingredient => (
-              <tr key={ingredient.title}>
+              <tr key={ingredient.idIngredient}>
                 <td>{ingredient.title}</td>
                 <td>
                   <div>

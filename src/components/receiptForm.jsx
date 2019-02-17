@@ -18,7 +18,7 @@ class ReceiptForm extends Form {
       preparation: "",
       personNum: 0,
       cookingTime: 0,
-      love: false,
+      liked: false,
       genre: {
         title: "",
         genreId: ""
@@ -51,7 +51,7 @@ class ReceiptForm extends Form {
       data.cookingTime = receipt.cookingTime;
       data.personNum = receipt.personNum;
       data.preparation = receipt.preparation;
-      data.love = receipt.love;
+      data.liked = receipt.liked;
 
       this.setState({ data });
     } catch (ex) {
@@ -122,7 +122,7 @@ class ReceiptForm extends Form {
 
     if (exestingIngredient.length == 0) {
       ingredients.push({
-        name: ingredientChoosed.title,
+        title: ingredientChoosed.title,
         quantity,
         unity: ingredientChoosed.unity,
         idIngredient: ingredientChoosed._id
