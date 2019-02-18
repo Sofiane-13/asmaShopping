@@ -58,3 +58,7 @@ export async function postShoppingList(data, liked) {
 export async function deleteShoppingList(data) {
     return http.delete(apiUrl + "/shoppingList/" + data._id);
 }
+export async function deleteAllShoppingList() {
+    return http.delete(apiUrl + "/shoppingList/");
+
+}

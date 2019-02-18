@@ -12,7 +12,8 @@ import { Link } from "react-router-dom";
 import { getReceipts } from "../httpServices/receiptServices";
 import { putReceipts } from "../httpServices/receiptServices";
 import { postShoppingList } from "../httpServices/shoppingListServices";
-
+import { putAllReceiptsFalse } from "../httpServices/receiptServices";
+import { deleteAllShoppingList } from "../httpServices/shoppingListServices";
 class Receipts extends Component {
   state = {
     receipts: [],
@@ -66,6 +67,17 @@ class Receipts extends Component {
     this.setState({ currentPage: page });
   };
 
+  doSubmit = async () => {
+    let result = await deleteAllShoppingList();
+    let resultReceipts = await putAllReceiptsFalse();
+    let { receipts } = this.state;
+    receipts.map(function(x) {
+      x.liked = false;
+      return x;
+    });
+    this.setState({ receipts });
+  };
+
   render() {
     const {
       receipts,
@@ -84,7 +96,9 @@ class Receipts extends Component {
           {" "}
           <button className="btn btn-primary">New</button>
         </Link>
-
+        <button className="btn btn-danger" onClick={() => this.doSubmit()}>
+          Clear
+        </button>
         <SearchBox value={searchQuery} onChange={this.handleSearch} />
         <ReceiptsTable
           receipts={data}
