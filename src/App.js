@@ -7,6 +7,7 @@ import NavBar from "./components/navBar";
 import ProtectedRoute from "./components/common/protectedRoute";
 import ReceiptForm from "./components/receiptForm";
 import ShoppingList from "./components/shoppingList";
+import AllIngredients from "./components/allIngredients";
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
             <ProtectedRoute path="/receipts/:id" component={ReceiptForm} />
             <Route path="/receipts" component={Receipts} />
             <Route path="/shoppingList" component={ShoppingList} />
+            <Route path="/ingredients" component={AllIngredients} />
             <Route path="/" component={Home} />
           </Switch>{" "}
         </main>{" "}
