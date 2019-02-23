@@ -27,10 +27,9 @@ class Receipts extends Component {
 
   async componentDidMount() {
     const receipts = await getReceipts();
-    if (receipts === "undefined") {
-      receipts = [];
+    if (receipts != "undefined") {
+      this.setState({ receipts: receipts.data });
     }
-    this.setState({ receipts: receipts.data });
   }
 
   handleLike = async receipt => {
