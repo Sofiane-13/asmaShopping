@@ -27,6 +27,9 @@ class Receipts extends Component {
 
   async componentDidMount() {
     const receipts = await getReceipts();
+    if (receipts === "undefined") {
+      receipts = [];
+    }
     this.setState({ receipts: receipts.data });
   }
 
