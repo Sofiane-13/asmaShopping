@@ -1,10 +1,5 @@
 import React, { Component } from "react";
 import ReceiptsTable from "./receiptsTable";
-import { updateLike } from "../services/fakeReceiptService";
-import {
-  addingToShoppingListe,
-  removingFromShoppingList
-} from "../services/fakeShoppingList";
 import SearchBox from "./searchBox";
 import Pagination from "./common/pagination";
 import { paginate } from "../components/utils/paginate";
@@ -92,11 +87,14 @@ class Receipts extends Component {
     const totalCount = filtered.length;
     return (
       <div>
-        <h1>Receipts</h1>
+        <h1 style={{ margin: "1rem 1rem 3rem 0", fontFamily: "system-ui" }}>
+          Receipts
+        </h1>
 
         <Link to={`/receipts/new`}>
-          {" "}
-          <button className="btn btn-primary">New</button>
+          <button className="btn btn-primary" style={{ marginRight: "1rem" }}>
+            New
+          </button>
         </Link>
         <button className="btn btn-danger" onClick={() => this.doSubmit()}>
           Clear

@@ -22,7 +22,14 @@ class ShoppingList extends Component {
 
     return (
       <div>
-        <button className="btn btn-danger" onClick={() => this.doSubmit()}>
+        <h1 style={{ margin: "1rem 1rem 3rem 0", fontFamily: "system-ui" }}>
+          My shopping list of the week
+        </h1>
+        <button
+          className="btn btn-danger"
+          style={{ marginBottom: "1rem" }}
+          onClick={() => this.doSubmit()}
+        >
           clear
         </button>
         <table className="table">

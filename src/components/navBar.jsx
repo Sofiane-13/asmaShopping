@@ -5,7 +5,7 @@ const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <Link className="navbar-brand" to="/">
-        Home
+        Receipts
       </Link>
       <button
         className="navbar-toggler"
@@ -20,9 +20,6 @@ const NavBar = () => {
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav">
-          <NavLink className="nav-item nav-link" to="/receipts">
-            Receipts
-          </NavLink>
           <NavLink className="nav-item nav-link" to="/shoppingList">
             Shopping-List
           </NavLink>

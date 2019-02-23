@@ -1,12 +1,10 @@
 import React from "react";
 import Form from "./common/form";
-import { getGenres, getGenre } from "../services/fakeGenreService";
-// import { getIngredients } from "../services/fakeIngredientService";
+import { getGenres } from "../services/fakeGenreService";
 import { getIngredient } from "../httpServices/ingredientServices";
 import MyIngredients from "./common/myIngredients";
 import "./receiptForm.css";
 import Popup from "./common/popup";
-import { addIngredient } from "../services/fakeReceiptService";
 import { getReceiptsById } from "../httpServices/receiptServices";
 import { putReceipts } from "../httpServices/receiptServices";
 import { postReceipts } from "../httpServices/receiptServices";

@@ -17,10 +17,9 @@ class App extends Component {
           <NavBar />
           <Switch>
             <ProtectedRoute path="/receipts/:id" component={ReceiptForm} />
-            <Route path="/receipts" component={Receipts} />
             <Route path="/shoppingList" component={ShoppingList} />
             <Route path="/ingredients" component={AllIngredients} />
-            <Route path="/" component={Home} />
+            <Route path="/" component={Receipts} />
           </Switch>{" "}
         </main>{" "}
       </React.Fragment>

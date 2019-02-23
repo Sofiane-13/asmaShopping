@@ -1,18 +1,22 @@
 export const genres = [{
-    _id: "5b21ca3eeb7f6fbccd471818",
+    _id: "5b21ca3eeb7f6fbccd471801",
     name: "receipt"
   },
   {
-    _id: "5b21ca3eeb7f6fbccd471820",
+    _id: "5b21ca3eeb7f6fbccd471802",
     name: "cooked meal"
   },
   {
-    _id: "5b21ca3eeb7f6fbccd471814",
+    _id: "5b21ca3eeb7f6fbccd471803",
     name: "bakery"
   },
   {
-    _id: "5b21ca3eeb7f6fbccd471815",
+    _id: "5b21ca3eeb7f6fbccd471804",
     name: "fruit"
+  },
+  {
+    _id: "5b21ca3eeb7f6fbccd471805",
+    name: "traditional"
   },
 
 

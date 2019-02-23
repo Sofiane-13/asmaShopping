@@ -58,7 +58,6 @@ class AllIngredients extends Component {
     const existingIngredient = ingredients.filter(
       i => i.title.toLowerCase() === data.title.toLowerCase()
     );
-    console.log("existingIngredient", existingIngredient);
     if (existingIngredient.length != 0) {
       alert("Ingredient existe ! ");
     } else {
@@ -67,7 +66,6 @@ class AllIngredients extends Component {
         unity: data.unity
       };
       let result = await postIngredient(ingredient);
-      console.log("result", result);
       let newIngredients = ingredients;
       newIngredients.push(ingredient);
 
@@ -83,16 +81,21 @@ class AllIngredients extends Component {
     }
   };
   render() {
-    console.log(this.state.ingredients);
     const { ingredients, currentPage, pageSize } = this.state;
 
     const { data, totalCount } = this.getPagedData(ingredients);
     // const totalCount = data.length;
 
-    console.log("totalCount", totalCount);
     return (
       <div>
-        <button className="btn btn-primary" onClick={() => this.doSubmit()}>
+        <h1 style={{ margin: "1rem 1rem 3rem 0", fontFamily: "system-ui" }}>
+          All ingredients
+        </h1>
+        <button
+          className="btn btn-primary"
+          style={{ marginBottom: "1rem" }}
+          onClick={() => this.doSubmit()}
+        >
           New
         </button>
         <div className="form-group">
