@@ -1,9 +1,13 @@
 import React, { Component } from "react";
-import { getIngredient } from "../httpServices/ingredientServices";
+import {
+  getIngredient,
+  deleteIngredient
+} from "../httpServices/ingredientServices";
 import ReceiptsTable from "./receiptsTable";
 import Pagination from "./common/pagination";
 import { paginate } from "./utils/paginate";
 import { postIngredient } from "../httpServices/ingredientServices";
+import { deleteShoppingList } from "../httpServices/shoppingListServices";
 class AllIngredients extends Component {
   state = {
     data: {
@@ -57,6 +61,15 @@ class AllIngredients extends Component {
     if (data.title.length === 0 || data.unity.length === 0) return true;
     else return false;
   }
+  handelonDelete = async ingredient => {
+    const { ingredients } = this.state;
+    console.log("ingredient", ingredient);
+    console.log("listshop", ingredients);
+    const myIngredients = ingredients.filter(m => m !== ingredient);
+
+    const result = await deleteIngredient(ingredient);
+    this.setState({ ingredients: myIngredients });
+  };
   doSubmit = async () => {
     const { ingredients, data, searchQuery } = this.state;
     const existingIngredient = ingredients.filter(
@@ -92,8 +105,8 @@ class AllIngredients extends Component {
 
     return (
       <div>
-        <h1 style={{ margin: "1rem 1rem 3rem 0", fontFamily: "system-ui" }}>
-          All ingredients
+        <h1 style={{ margin: "1rem 1rem 1rem 0", fontFamily: "system-ui" }}>
+          Add new ingredient
         </h1>
         <button
           className="btn btn-primary"
@@ -103,6 +116,7 @@ class AllIngredients extends Component {
         >
           New
         </button>
+
         <div className="form-group">
           <label htmlFor="Title">Title</label>
           <input
@@ -111,6 +125,7 @@ class AllIngredients extends Component {
             className="form-control"
             value={this.state.data.title}
             onChange={this.handleChangeTitle.bind(this)}
+            style={{ width: "50%" }}
           />
         </div>
         <div className="form-group">
@@ -121,20 +136,40 @@ class AllIngredients extends Component {
             className="form-control"
             value={this.state.data.unity}
             onChange={this.handleChangeUnity.bind(this)}
+            style={{ width: "50%" }}
           />
         </div>
+        <h1
+          style={{
+            margin: "2rem 1rem 1rem 0",
+            fontFamily: "system-ui",
+            borderTop: "3px solid #00FFFF",
+            padding: "1rem"
+          }}
+        >
+          All ingredients
+        </h1>
         <table className="table">
           <thead>
             <tr>
               <th>Name</th>
               <th>Unity</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
-            {data.map(item => (
-              <tr key={item.title}>
-                <td>{item.title}</td>
-                <td>{item.unity}</td>
+            {data.map(ingredient => (
+              <tr key={ingredient.title}>
+                <td>{ingredient.title}</td>
+                <td>{ingredient.unity}</td>
+                <td>
+                  <button
+                    onClick={() => this.handelonDelete(ingredient)}
+                    className="btn btn-danger btn-sm"
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

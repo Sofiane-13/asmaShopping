@@ -20,3 +20,7 @@ export function putIngredient(data, ) {
 export function postIngredient(data) {
     return http.post(apiUrl + "/ingredients/", data);
 }
+
+export async function deleteIngredient(data) {
+    return http.delete(apiUrl + "/ingredients/" + data._id);
+}

@@ -22,20 +22,19 @@ class ReceiptsTable extends Component {
           onClick={() => this.props.onLike(receipt)}
         />
       )
+    },
+    {
+      key: "delete",
+      content: receipt => (
+        <button
+          onClick={() => this.props.onDelete(receipt)}
+          className="btn btn-danger btn-sm"
+        >
+          Delete
+        </button>
+      )
     }
   ];
-
-  deleteColumn = {
-    key: "delete",
-    content: receipt => (
-      <button
-        onClick={() => this.props.onDelete(receipt)}
-        className="btn btn-danger btn-sm"
-      >
-        Delete
-      </button>
-    )
-  };
 
   render() {
     const { receipts, onSort, sortColumn } = this.props;

@@ -3,7 +3,8 @@ import {
   getShoppingList,
   deleteAllShoppingList,
   putShoppingList,
-  postShoppingList
+  postShoppingList,
+  deleteShoppingList
 } from "../httpServices/shoppingListServices";
 import { putAllReceiptsFalse } from "../httpServices/receiptServices";
 import Popup from "./common/popup";
@@ -58,6 +59,15 @@ class ShoppingList extends Component {
     listShopping = [];
     this.setState({ listShopping });
   };
+  handelonDelete = async ingredient => {
+    const { listShopping } = this.state;
+    console.log("ingredient", ingredient);
+    console.log("listshop", listShopping);
+    const ingredients = listShopping.filter(m => m !== ingredient);
+
+    const result = await deleteShoppingList(ingredient);
+    this.setState({ listShopping: ingredients });
+  };
   render() {
     const data = this.state.listShopping;
     return (
@@ -90,6 +100,7 @@ class ShoppingList extends Component {
               <th scope="col">Ingredients</th>
               <th scope="col">Quantity</th>
               <th scope="col">Unity</th>
+              <th scope="col">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -98,6 +109,14 @@ class ShoppingList extends Component {
                 <td>{ingredient.title}</td>
                 <td>{ingredient.quantity}</td>
                 <td>{ingredient.unity}</td>
+                <td>
+                  <button
+                    onClick={() => this.handelonDelete(ingredient)}
+                    className="btn btn-danger btn-sm"
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
