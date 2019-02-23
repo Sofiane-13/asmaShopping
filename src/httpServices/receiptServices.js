@@ -24,3 +24,6 @@ export function putAllReceiptsFalse() {
 export function postReceipts(data) {
     return http.post(apiUrl + "/receipts/", data);
 }
+export async function deleteReceipt(data) {
+    return http.delete(apiUrl + "/receipts/" + data._id);
+}

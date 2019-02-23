@@ -23,7 +23,7 @@ class TableToSelect extends Component {
                   style={{ width: "100%", height: "100%" }}
                   onClick={() => handelSelectedIngredient(ingredient)}
                 >
-                  {ingredient.title}
+                  {ingredient.title} ({ingredient.unity})
                 </button>
               </td>
             </tr>

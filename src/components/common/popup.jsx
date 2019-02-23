@@ -95,7 +95,7 @@ class Popup extends Component {
           effect="fadeInUp"
           onClickAway={() => this.closeModal()}
         >
-          <div style={{ padding: "5px" }}>
+          <div style={{ margin: "1.5rem", padding: "1.5rem" }}>
             <div>
               <button
                 className="float-right btn btn-dark"
@@ -106,9 +106,9 @@ class Popup extends Component {
                 Close
               </button>
 
-              <h1>Add ingredients</h1>
+              <h1 style={{ fontFamily: "system-ui" }}>Add ingredients</h1>
               <h6>
-                <b>Quantity :</b>
+                <b style={{ fontFamily: "system-ui" }}>Quantity :</b>
               </h6>
               <QuantityManager
                 quantity={quantity}
@@ -129,7 +129,6 @@ class Popup extends Component {
               />
             </div>
             <button
-              style={{ marginLeft: "10px" }}
               type="button"
               className="btn btn-secondary"
               onClick={() => handelAddIngredient(ingredientChoosed, quantity)}

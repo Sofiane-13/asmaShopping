@@ -9,8 +9,10 @@ import {
 import { putAllReceiptsFalse } from "../httpServices/receiptServices";
 import Popup from "./common/popup";
 import { getIngredient } from "../httpServices/ingredientServices";
+import Pagination from "./common/pagination";
+import { paginate } from "./utils/paginate";
 class ShoppingList extends Component {
-  state = { listShopping: [], ingredients: [] };
+  state = { listShopping: [], ingredients: [], pageSize: 5, currentPage: 1 };
   async componentDidMount() {
     this.populateAllIngredient();
     const myList = await getShoppingList();
@@ -61,15 +63,35 @@ class ShoppingList extends Component {
   };
   handelonDelete = async ingredient => {
     const { listShopping } = this.state;
-    console.log("ingredient", ingredient);
-    console.log("listshop", listShopping);
+
     const ingredients = listShopping.filter(m => m !== ingredient);
 
     const result = await deleteShoppingList(ingredient);
     this.setState({ listShopping: ingredients });
   };
+  handlePageChange = page => {
+    this.setState({ currentPage: page });
+  };
+  getPagedData = receipts => {
+    const { currentPage, pageSize } = this.state;
+    let filtered = receipts;
+
+    const paginateIngredients = paginate(filtered, currentPage, pageSize);
+    return {
+      totalCount: paginateIngredients.length,
+      donnee: paginateIngredients,
+      filtered: filtered
+    };
+  };
   render() {
+    const { pageSize, currentPage } = this.state;
     const data = this.state.listShopping;
+    const { donnee, filtered } = this.getPagedData(data);
+    const totalCount = data.length;
+    console.log("pageSize", pageSize);
+    console.log("currentPage", currentPage);
+    console.log("totalCount", totalCount);
+    console.log("data", data);
     return (
       <div>
         <h1 style={{ margin: "1rem 1rem 3rem 0", fontFamily: "system-ui" }}>
@@ -121,6 +143,12 @@ class ShoppingList extends Component {
             ))}
           </tbody>
         </table>
+        <Pagination
+          itemsCount={totalCount}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onPageChange={this.handlePageChange}
+        />
       </div>
     );
   }

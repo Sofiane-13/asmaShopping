@@ -4,11 +4,13 @@ import SearchBox from "./searchBox";
 import Pagination from "./common/pagination";
 import { paginate } from "../components/utils/paginate";
 import { Link } from "react-router-dom";
-import { getReceipts } from "../httpServices/receiptServices";
+import { getReceipts, deleteReceipt } from "../httpServices/receiptServices";
 import { putReceipts } from "../httpServices/receiptServices";
 import { postShoppingList } from "../httpServices/shoppingListServices";
 import { putAllReceiptsFalse } from "../httpServices/receiptServices";
 import { deleteAllShoppingList } from "../httpServices/shoppingListServices";
+import Like from "./common/like";
+import { deleteIngredient } from "../httpServices/ingredientServices";
 class Receipts extends Component {
   state = {
     receipts: [],
@@ -63,7 +65,14 @@ class Receipts extends Component {
   handlePageChange = page => {
     this.setState({ currentPage: page });
   };
+  handelonDelete = async receipt => {
+    const { receipts } = this.state;
 
+    const myReceipt = receipts.filter(m => m !== receipt);
+
+    const result = await deleteReceipt(receipt);
+    this.setState({ receipts: myReceipt });
+  };
   doSubmit = async () => {
     let result = await deleteAllShoppingList();
     let resultReceipts = await putAllReceiptsFalse();
@@ -85,6 +94,7 @@ class Receipts extends Component {
     } = this.state;
     const { data, filtered } = this.getPagedData(receipts);
     const totalCount = filtered.length;
+
     return (
       <div>
         <h1
@@ -105,13 +115,49 @@ class Receipts extends Component {
           Clear
         </button>
         <SearchBox value={searchQuery} onChange={this.handleSearch} />
-        <ReceiptsTable
+        {/* <ReceiptsTable
           receipts={data}
           sortColumn={sortColumn}
           onLike={this.handleLike}
           onDelete={this.handleDelete}
           onSort={this.handleSort}
-        />
+        /> */}
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">Ingredients</th>
+              <th scope="col">Person</th>
+              <th scope="col">Cooking time</th>
+              <th scope="col">Like</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map(data => (
+              <tr key={data._id}>
+                <td>
+                  <Link to={`/receipts/${data._id}`}>{data.title}</Link>
+                </td>
+                <td>{data.personNum}</td>
+                <td>{data.cookingTime}</td>
+                <td>
+                  <Like
+                    liked={data.liked}
+                    onClick={() => this.handleLike(data)}
+                  />
+                </td>
+                <td>
+                  <button
+                    onClick={() => this.handelonDelete(data)}
+                    className="btn btn-danger btn-sm"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
         <Pagination
           itemsCount={totalCount}
           pageSize={pageSize}

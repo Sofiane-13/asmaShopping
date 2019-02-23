@@ -36,8 +36,7 @@ class MyIngredients extends Component {
                     >
                       -
                     </button>
-                    {ingredient.quantity}
-
+                    {ingredient.quantity} ({ingredient.unity})
                     <button
                       onClick={() => onAddQuantity(ingredient)}
                       type="button"

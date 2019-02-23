@@ -4,12 +4,12 @@ class QuantityManager extends Component {
   render() {
     const { quantity, onRemoveQuantity, onAddQuantity } = this.props;
     return (
-      <div style={{ marginLeft: "5px" }}>
+      <div>
         <button
           onClick={onRemoveQuantity}
           type="button"
           className="btn btn-primary"
-          style={{ margin: "5px" }}
+          style={{ marginRight: "5px" }}
         >
           -
         </button>
@@ -18,7 +18,7 @@ class QuantityManager extends Component {
           onClick={onAddQuantity}
           type="button"
           className="btn btn-primary"
-          style={{ margin: "5px" }}
+          style={{ marginLeft: "5px" }}
         >
           +
         </button>

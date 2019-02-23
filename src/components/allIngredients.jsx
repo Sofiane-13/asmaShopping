@@ -63,8 +63,6 @@ class AllIngredients extends Component {
   }
   handelonDelete = async ingredient => {
     const { ingredients } = this.state;
-    console.log("ingredient", ingredient);
-    console.log("listshop", ingredients);
     const myIngredients = ingredients.filter(m => m !== ingredient);
 
     const result = await deleteIngredient(ingredient);
@@ -125,7 +123,7 @@ class AllIngredients extends Component {
             className="form-control"
             value={this.state.data.title}
             onChange={this.handleChangeTitle.bind(this)}
-            style={{ width: "50%" }}
+            style={{ width: "85%" }}
           />
         </div>
         <div className="form-group">
@@ -136,7 +134,7 @@ class AllIngredients extends Component {
             className="form-control"
             value={this.state.data.unity}
             onChange={this.handleChangeUnity.bind(this)}
-            style={{ width: "50%" }}
+            style={{ width: "85%" }}
           />
         </div>
         <h1
