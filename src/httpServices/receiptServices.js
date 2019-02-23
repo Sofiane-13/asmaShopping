@@ -6,12 +6,7 @@ import {
 } from "../config.json";
 
 export function getReceipts() {
-    return http.get(apiUrl + "/receipts").then(response => {
-            console.log(response)
-        })
-        .catch(error => {
-            console.log(error.response)
-        });
+    return http.get(apiUrl + "/receipts");
 }
 
 export function getReceiptsById(id) {

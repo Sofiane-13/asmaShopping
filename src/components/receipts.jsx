@@ -20,12 +20,13 @@ class Receipts extends Component {
     sortColumn: { path: "title", order: "asc" }
   };
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.populatReceipts();
+  }
+  async populatReceipts() {
     const receipts = await getReceipts();
-    console.log(receipts);
     this.setState({ receipts: receipts.data });
   }
-
   handleLike = async receipt => {
     let result;
     let resultshoppingList;
