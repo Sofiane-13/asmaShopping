@@ -87,8 +87,13 @@ class Receipts extends Component {
     const totalCount = filtered.length;
     return (
       <div>
-        <h1 style={{ margin: "1rem 1rem 3rem 0", fontFamily: "system-ui" }}>
-          Receipts
+        <h1
+          style={{
+            margin: "1rem 1rem 3rem 0",
+            fontFamily: "system-ui"
+          }}
+        >
+          Chose the recipes of the week
         </h1>
 
         <Link to={`/receipts/new`}>

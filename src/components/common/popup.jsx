@@ -85,7 +85,6 @@ class Popup extends Component {
           onClick={() => this.openModal()}
           type="button"
           className="btn btn-primary"
-          style={{ marginTop: "20px" }}
         >
           +
         </button>

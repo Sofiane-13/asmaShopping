@@ -52,7 +52,11 @@ class AllIngredients extends Component {
     data.unity = e.target.value;
     this.setState({ data });
   }
-
+  isItPossibleTosubmit() {
+    const { data } = this.state;
+    if (data.title.length === 0 || data.unity.length === 0) return true;
+    else return false;
+  }
   doSubmit = async () => {
     const { ingredients, data, searchQuery } = this.state;
     const existingIngredient = ingredients.filter(
@@ -95,6 +99,7 @@ class AllIngredients extends Component {
           className="btn btn-primary"
           style={{ marginBottom: "1rem" }}
           onClick={() => this.doSubmit()}
+          disabled={this.isItPossibleTosubmit()}
         >
           New
         </button>
