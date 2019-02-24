@@ -115,21 +115,13 @@ class Receipts extends Component {
           Clear
         </button>
         <SearchBox value={searchQuery} onChange={this.handleSearch} />
-        {/* <ReceiptsTable
-          receipts={data}
-          sortColumn={sortColumn}
-          onLike={this.handleLike}
-          onDelete={this.handleDelete}
-          onSort={this.handleSort}
-        /> */}
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">Ingredients</th>
-              <th scope="col">Person</th>
-              <th scope="col">Cooking time</th>
-              <th scope="col">Like</th>
-              <th scope="col">Delete</th>
+              <th>Ingredients</th>
+
+              <th>Like</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -138,8 +130,7 @@ class Receipts extends Component {
                 <td>
                   <Link to={`/receipts/${data._id}`}>{data.title}</Link>
                 </td>
-                <td>{data.personNum}</td>
-                <td>{data.cookingTime}</td>
+
                 <td>
                   <Like
                     liked={data.liked}
