@@ -9,8 +9,8 @@ const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
   let pages;
   let begin;
   let end;
-  begin = currentPage - 3;
-  end = currentPage + 3;
+  begin = currentPage - 2;
+  end = currentPage + 2;
   if (begin < 1) begin = 1;
   if (end > pagesCount) end = pagesCount;
 

@@ -75,7 +75,6 @@ class Popup extends Component {
     const { handelAddIngredient } = this.props;
 
     const { ingredients } = this.props;
-    //const totalCount = ingredients.length;
 
     const { data, filtered } = this.getPagedData(ingredients);
     const totalCount = filtered.length;
@@ -98,19 +97,19 @@ class Popup extends Component {
         >
           <div style={{ margin: "1.5rem", padding: "1.5rem" }}>
             <div>
-              <button
-                className="float-right btn btn-dark"
-                value="Open"
-                onClick={() => this.closeModal()}
-                type="button"
-              >
-                Close
-              </button>
-
-              <h1 style={{ fontFamily: "system-ui" }}>Add ingredients</h1>
-              <h6>
-                <b style={{ fontFamily: "system-ui" }}>Quantity :</b>
-              </h6>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <h6>
+                  <b style={{ fontFamily: "system-ui" }}>Quantity :</b>
+                </h6>
+                <button
+                  className="float-right btn btn-dark"
+                  value="Open"
+                  onClick={() => this.closeModal()}
+                  type="button"
+                >
+                  Close
+                </button>
+              </div>
               <QuantityManager
                 quantity={quantity}
                 onRemoveQuantity={this.onRemoveQuantity}
