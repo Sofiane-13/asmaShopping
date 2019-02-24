@@ -38,7 +38,6 @@ class Receipts extends Component {
     let resultshoppingList;
 
     const myReceipt = receipt;
-    console.log("myReceipt", myReceipt);
     resultshoppingList = await postShoppingList(myReceipt, myReceipt.liked);
 
     myReceipt.liked = !myReceipt.liked;
@@ -125,8 +124,6 @@ class Receipts extends Component {
     } = this.state;
     const { data, filtered } = this.getPagedData(receipts);
     const totalCount = filtered.length;
-    console.log("data", data);
-    console.log("receipts", receipts);
 
     return (
       <div>

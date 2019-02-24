@@ -9,7 +9,7 @@ class Popup extends Component {
   state = {
     visible: false,
     currentPage: 1,
-    pageSize: 5,
+    pageSize: 2,
     searchQuery: "",
     quantity: 0,
     ingredientChoosed: ""
@@ -40,7 +40,8 @@ class Popup extends Component {
     const paginateIngredients = paginate(filtered, currentPage, pageSize);
     return {
       totalCount: paginateIngredients.length,
-      data: paginateIngredients
+      data: paginateIngredients,
+      filtered: filtered
     };
   };
   handleSearch = query => {
@@ -74,9 +75,10 @@ class Popup extends Component {
     const { handelAddIngredient } = this.props;
 
     const { ingredients } = this.props;
-    const totalCount = ingredients.length;
+    //const totalCount = ingredients.length;
 
-    const { data } = this.getPagedData(ingredients);
+    const { data, filtered } = this.getPagedData(ingredients);
+    const totalCount = filtered.length;
     return (
       <section>
         <button
