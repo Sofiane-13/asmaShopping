@@ -10,7 +10,8 @@ import { postShoppingList } from "../httpServices/shoppingListServices";
 import { putAllReceiptsFalse } from "../httpServices/receiptServices";
 import { deleteAllShoppingList } from "../httpServices/shoppingListServices";
 import Like from "./common/like";
-import { deleteIngredient } from "../httpServices/ingredientServices";
+import { getGenres } from "../services/fakeGenreService";
+import { Button, Collapse } from "react-bootstrap";
 class Receipts extends Component {
   state = {
     receipts: [],
@@ -19,11 +20,14 @@ class Receipts extends Component {
     pageSize: 6,
     searchQuery: "",
     selectedGenre: null,
-    sortColumn: { path: "title", order: "asc" }
+    sortColumn: { path: "title", order: "asc" },
+    genres: [],
+    open: false
   };
 
   componentDidMount() {
     this.populatReceipts();
+    this.populateGenres();
   }
   async populatReceipts() {
     const receipts = await getReceipts();
@@ -48,12 +52,16 @@ class Receipts extends Component {
   };
 
   getPagedData = receipts => {
-    const { currentPage, pageSize, searchQuery } = this.state;
+    const { currentPage, pageSize, searchQuery, selectedGenre } = this.state;
     let filtered = receipts;
+
     if (searchQuery)
       filtered = receipts.filter(m =>
         m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
       );
+    if (selectedGenre && selectedGenre._id)
+      filtered = filtered.filter(m => m.genre.genreId === selectedGenre._id);
+
     const paginateIngredients = paginate(filtered, currentPage, pageSize);
     return {
       totalCount: paginateIngredients.length,
@@ -83,6 +91,26 @@ class Receipts extends Component {
     });
     this.setState({ receipts });
   };
+  populateGenres() {
+    const data = getGenres();
+
+    //const { data } = await getGenres();
+    const genres = [{ _id: "", name: "All Genres" }, ...data];
+    this.setState({ genres });
+  }
+  handleGenreSelect = genre => {
+    this.setState({ selectedGenre: genre, searchQuery: "", currentPage: 1 });
+  };
+  handlingFilterButton = () => {
+    const { open } = this.state;
+
+    if (open)
+      this.setState({
+        open: !open,
+        selectedGenre: { _id: "", name: "All Genres" }
+      });
+    else this.setState({ open: !open });
+  };
 
   render() {
     const {
@@ -90,11 +118,13 @@ class Receipts extends Component {
       sortColumn,
       searchQuery,
       pageSize,
-      currentPage
+      currentPage,
+      genres,
+      selectedGenre,
+      open
     } = this.state;
     const { data, filtered } = this.getPagedData(receipts);
     const totalCount = filtered.length;
-
     return (
       <div>
         <h1
@@ -111,9 +141,40 @@ class Receipts extends Component {
             New
           </button>
         </Link>
-        <button className="btn btn-danger" onClick={() => this.doSubmit()}>
+        <button
+          className="btn btn-danger"
+          style={{ marginRight: "1rem" }}
+          onClick={() => this.doSubmit()}
+        >
           Clear
         </button>
+        <button
+          className="btn btn-dark"
+          onClick={() => this.handlingFilterButton()}
+          aria-controls="example-collapse-text"
+          aria-expanded={open}
+        >
+          Filter
+        </button>
+        <Collapse in={this.state.open}>
+          <div id="example-collapse-text" style={{ marginTop: "1rem" }}>
+            <ul className="list-group">
+              {genres.map(item => (
+                <li
+                  onClick={() => this.handleGenreSelect(item)}
+                  key={item._id}
+                  className={
+                    item === selectedGenre
+                      ? "list-group-item active"
+                      : "list-group-item"
+                  }
+                >
+                  {item.name}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Collapse>
         <SearchBox value={searchQuery} onChange={this.handleSearch} />
         <table className="table">
           <thead>
