@@ -119,7 +119,6 @@ class Receipts extends Component {
           <thead>
             <tr>
               <th>Ingredients</th>
-
               <th>Like</th>
               <th>Delete</th>
             </tr>

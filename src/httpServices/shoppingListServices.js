@@ -32,14 +32,14 @@ export async function postShoppingList(data, liked) {
                 const calc = exestingIngredient[0].quantity - value.quantity;
                 if (calc > 0) {
                     newIngredient.quantity = calc;
-                    let result = await putShoppingList(newIngredient);
+                    return await putShoppingList(newIngredient);
                 } else {
-                    let resultDelete = await deleteShoppingList(newIngredient);
+                    return await deleteShoppingList(newIngredient);
                 }
             } else {
 
                 newIngredient.quantity = value.quantity + exestingIngredient[0].quantity;
-                let result = await putShoppingList(newIngredient);
+                return await putShoppingList(newIngredient);
             }
             exestingIngredient = null;
         } else {
@@ -47,7 +47,7 @@ export async function postShoppingList(data, liked) {
 
             } else {
                 delete(value._id);
-                http.post(apiUrl + "/shoppingList/", value);
+                return http.post(apiUrl + "/shoppingList/", value);
             }
         }
 

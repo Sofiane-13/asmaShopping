@@ -169,7 +169,7 @@ class ReceiptForm extends Form {
 
     return (
       <div>
-        <h1>Receipt Form</h1>
+        <h1 style={{ fontFamily: "system-ui" }}>Receipt Form</h1>
         <div className="form-group">
           <label htmlFor="Title">Title</label>
           <input
@@ -302,7 +302,20 @@ class ReceiptForm extends Form {
           />
         </div>
       );
-    else return <div>There is no ingredient</div>;
+    else
+      return (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "5rem",
+            fontFamily: "system-ui"
+          }}
+        >
+          There is no ingredient !
+        </div>
+      );
   }
 }
 

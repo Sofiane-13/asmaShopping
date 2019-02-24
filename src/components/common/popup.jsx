@@ -80,13 +80,12 @@ class Popup extends Component {
     return (
       <section>
         <button
-          // onClick={() => onRemoveQuantity(ingredient)}
           value="Open"
           onClick={() => this.openModal()}
           type="button"
           className="btn btn-primary"
         >
-          +
+          New ingredient
         </button>
         <Modal
           visible={this.state.visible}

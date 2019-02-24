@@ -29,14 +29,6 @@ class ShoppingList extends Component {
     );
 
     if (exestingIngredient.length == 0) {
-      listShopping.push({
-        title: ingredientChoosed.title,
-        quantity,
-        unity: ingredientChoosed.unity,
-        idIngredient: ingredientChoosed._id
-      });
-
-      //prepar ingredient
       const data = {
         ingredients: [
           {
@@ -48,7 +40,7 @@ class ShoppingList extends Component {
         ]
       };
       let resultshoppingList = await postShoppingList(data, false);
-
+      listShopping.push(resultshoppingList.data);
       this.setState({ listShopping });
     } else {
       alert("Ingredient already exists !");
@@ -79,19 +71,16 @@ class ShoppingList extends Component {
     const paginateIngredients = paginate(filtered, currentPage, pageSize);
     return {
       totalCount: paginateIngredients.length,
-      donnee: paginateIngredients,
+      dataPaginate: paginateIngredients,
       filtered: filtered
     };
   };
   render() {
     const { pageSize, currentPage } = this.state;
     const data = this.state.listShopping;
-    const { donnee, filtered } = this.getPagedData(data);
+    const { dataPaginate, filtered } = this.getPagedData(data);
     const totalCount = data.length;
-    console.log("pageSize", pageSize);
-    console.log("currentPage", currentPage);
-    console.log("totalCount", totalCount);
-    console.log("data", data);
+
     return (
       <div>
         <h1 style={{ margin: "1rem 1rem 3rem 0", fontFamily: "system-ui" }}>
@@ -126,7 +115,7 @@ class ShoppingList extends Component {
             </tr>
           </thead>
           <tbody>
-            {data.map(ingredient => (
+            {dataPaginate.map(ingredient => (
               <tr key={ingredient.idIngredient}>
                 <td>{ingredient.title}</td>
                 <td>{ingredient.quantity}</td>

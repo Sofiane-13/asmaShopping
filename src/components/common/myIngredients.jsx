@@ -31,8 +31,8 @@ class MyIngredients extends Component {
                     <button
                       onClick={() => onRemoveQuantity(ingredient)}
                       type="button"
-                      className="btn btn-primary"
-                      style={{ margin: "5px" }}
+                      className="btn btn-primary btn-sm"
+                      style={{ marginRight: "5px" }}
                     >
                       -
                     </button>
@@ -40,8 +40,8 @@ class MyIngredients extends Component {
                     <button
                       onClick={() => onAddQuantity(ingredient)}
                       type="button"
-                      className="btn btn-primary"
-                      style={{ margin: "5px" }}
+                      className="btn btn-primary btn-sm"
+                      style={{ marginLeft: "5px" }}
                     >
                       +
                     </button>
