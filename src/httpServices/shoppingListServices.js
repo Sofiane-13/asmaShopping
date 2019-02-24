@@ -17,14 +17,16 @@ export function putShoppingList(data) {
 
 export async function postShoppingList(data, liked) {
     let allIngredients = await getShoppingList();
-
+    console.log('data postShoppingList', data);
     const iterator = data.ingredients.values();
     let i = 0;
     for (const value of iterator) {
         const exestingIngredient = allIngredients.data.filter(
             i => i.idIngredient == value.idIngredient
         );
-
+        console.log('i =', i);
+        console.log('value', value);
+        console.log('exestingIngredient', exestingIngredient);
         if (exestingIngredient && exestingIngredient.length > 0) {
             const newIngredient = exestingIngredient[0];
 
