@@ -4,7 +4,8 @@ import {
   deleteAllShoppingList,
   putShoppingList,
   postShoppingList,
-  deleteShoppingList
+  deleteShoppingList,
+  postShoppingListOne
 } from "../httpServices/shoppingListServices";
 import { putAllReceiptsFalse } from "../httpServices/receiptServices";
 import Popup from "./common/popup";
@@ -39,7 +40,7 @@ class ShoppingList extends Component {
           }
         ]
       };
-      let resultshoppingList = await postShoppingList(data, false);
+      let resultshoppingList = await postShoppingListOne(data, false);
       listShopping.push(resultshoppingList.data);
       this.setState({ listShopping });
     } else {
