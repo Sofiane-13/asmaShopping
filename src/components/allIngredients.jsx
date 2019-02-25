@@ -103,50 +103,6 @@ class AllIngredients extends Component {
 
     return (
       <div>
-        <h1 style={{ margin: "1rem 1rem 1rem 0", fontFamily: "system-ui" }}>
-          Add new ingredient
-        </h1>
-        <button
-          className="btn btn-primary"
-          style={{ marginBottom: "1rem" }}
-          onClick={() => this.doSubmit()}
-          disabled={this.isItPossibleTosubmit()}
-        >
-          New
-        </button>
-
-        <div className="form-group">
-          <label htmlFor="Title">Title</label>
-          <input
-            name="Title"
-            id="Title"
-            className="form-control"
-            value={this.state.data.title}
-            onChange={this.handleChangeTitle.bind(this)}
-            style={{ width: "85%" }}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="Unity">Unity</label>
-          <input
-            name="Unity"
-            id="Unity"
-            className="form-control"
-            value={this.state.data.unity}
-            onChange={this.handleChangeUnity.bind(this)}
-            style={{ width: "85%" }}
-          />
-        </div>
-        <h1
-          style={{
-            margin: "2rem 1rem 1rem 0",
-            fontFamily: "system-ui",
-            borderTop: "3px solid #00FFFF",
-            padding: "1rem"
-          }}
-        >
-          All ingredients
-        </h1>
         <table className="table">
           <thead>
             <tr>
@@ -178,6 +134,36 @@ class AllIngredients extends Component {
           currentPage={currentPage}
           onPageChange={this.handlePageChange}
         />
+        <div className="form-group">
+          <label htmlFor="Title">Title</label>
+          <input
+            name="Title"
+            id="Title"
+            className="form-control"
+            value={this.state.data.title}
+            onChange={this.handleChangeTitle.bind(this)}
+            style={{ width: "85%" }}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="Unity">Unity</label>
+          <input
+            name="Unity"
+            id="Unity"
+            className="form-control"
+            value={this.state.data.unity}
+            onChange={this.handleChangeUnity.bind(this)}
+            style={{ width: "85%" }}
+          />
+        </div>
+        <button
+          className="btn btn-primary"
+          style={{ marginBottom: "1rem" }}
+          onClick={() => this.doSubmit()}
+          disabled={this.isItPossibleTosubmit()}
+        >
+          New
+        </button>
       </div>
     );
   }

@@ -1,8 +1,8 @@
 {
-  "short_name": "Your kitchen",
-  "name": "Bsahtek Sofiane !",
+  "short_name": "Cooking man",
+  "name": "Miam miam...",
   "icons": [{
-    "src": "couscous.jpeg",
+    "src": "appLogo.jpg",
     "sizes": "64x64 32x32 24x24 16x16",
     "type": "image/x-icon"
   }],

@@ -169,7 +169,6 @@ class ReceiptForm extends Form {
 
     return (
       <div>
-        <h1 style={{ fontFamily: "system-ui" }}>Receipt Form</h1>
         <div className="form-group">
           <label htmlFor="Title">Title</label>
           <input

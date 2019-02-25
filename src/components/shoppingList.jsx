@@ -84,9 +84,6 @@ class ShoppingList extends Component {
 
     return (
       <div>
-        <h1 style={{ margin: "1rem 1rem 3rem 0", fontFamily: "system-ui" }}>
-          My shopping list of the week
-        </h1>
         <div
           style={{
             display: "flex",
