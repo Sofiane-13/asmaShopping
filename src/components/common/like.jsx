@@ -6,7 +6,7 @@ const Like = props => {
   return (
     <i
       onClick={props.onClick}
-      style={{ cursor: "pointer" }}
+      style={{ cursor: "pointer", fontSize: "1.5rem" }}
       className={classes}
       aria-hidden="true"
     />
