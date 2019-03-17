@@ -27,7 +27,7 @@ class MyIngredients extends Component {
               <tr key={ingredient.idIngredient}>
                 <td>{ingredient.title}</td>
                 <td>
-                  <div>
+                  <div style={{ display: "flex" }}>
                     <button
                       onClick={() => onRemoveQuantity(ingredient)}
                       type="button"
@@ -36,7 +36,9 @@ class MyIngredients extends Component {
                     >
                       -
                     </button>
-                    {ingredient.quantity} ({ingredient.unity})
+                    <span>
+                      {ingredient.quantity}({ingredient.unity})
+                    </span>
                     <button
                       onClick={() => onAddQuantity(ingredient)}
                       type="button"
