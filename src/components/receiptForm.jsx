@@ -74,9 +74,14 @@ class ReceiptForm extends Form {
     let result;
     const receiptId = this.props.match.params.id;
     if (receiptId === "new") {
-      delete data._id;
+      if (data._id === "") {
+        delete data._id;
 
-      result = await postReceipts(data);
+        result = await postReceipts(data);
+        this.setState({ data: result.data });
+      } else {
+        result = await putReceipts(this.state.data, this.state.data._id);
+      }
     } else {
       result = await putReceipts(this.state.data, this.state.data._id);
     }
