@@ -63,6 +63,9 @@ class Popup extends Component {
     quantity++;
     this.setState({ quantity });
   };
+  onChange(field, value) {
+    this.setState({ quantity: value.target.value });
+  }
 
   render() {
     const {
@@ -114,6 +117,7 @@ class Popup extends Component {
                 quantity={quantity}
                 onRemoveQuantity={this.onRemoveQuantity}
                 onAddQuantity={this.onAddQuantity}
+                onChange={this.onChange.bind(this)}
               />
               <SearchBox value={searchQuery} onChange={this.handleSearch} />
               <TableToSelect
