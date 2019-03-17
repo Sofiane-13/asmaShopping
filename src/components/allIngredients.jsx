@@ -102,7 +102,7 @@ class AllIngredients extends Component {
     // const totalCount = data.length;
 
     return (
-      <div>
+      <div style={{ marginTop: "1rem" }}>
         <table className="table">
           <thead>
             <tr>

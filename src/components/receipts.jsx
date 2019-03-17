@@ -126,27 +126,29 @@ class Receipts extends Component {
     const totalCount = filtered.length;
 
     return (
-      <div>
-        <Link to={`/receipts/new`}>
-          <button className="btn btn-primary" style={{ marginRight: "1rem" }}>
-            New
+      <div style={{ marginTop: "1rem" }}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Link to={`/receipts/new`}>
+            <button className="btn btn-primary" style={{ marginRight: "1rem" }}>
+              New
+            </button>
+          </Link>
+          <button
+            className="btn btn-danger"
+            style={{ marginRight: "1rem" }}
+            onClick={() => this.doSubmit()}
+          >
+            Clear
           </button>
-        </Link>
-        <button
-          className="btn btn-danger"
-          style={{ marginRight: "1rem" }}
-          onClick={() => this.doSubmit()}
-        >
-          Clear
-        </button>
-        <button
-          className="btn btn-dark"
-          onClick={() => this.handlingFilterButton()}
-          aria-controls="example-collapse-text"
-          aria-expanded={open}
-        >
-          Filter
-        </button>
+          <button
+            className="btn btn-dark"
+            onClick={() => this.handlingFilterButton()}
+            aria-controls="example-collapse-text"
+            aria-expanded={open}
+          >
+            Filter
+          </button>
+        </div>
         <Collapse in={this.state.open}>
           <div id="example-collapse-text" style={{ marginTop: "1rem" }}>
             <ul className="list-group">
