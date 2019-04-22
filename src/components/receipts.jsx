@@ -43,9 +43,9 @@ class Receipts extends Component {
     resultshoppingList = await postShoppingList(myReceipt, myReceipt.liked);
 
     myReceipt.liked = !myReceipt.liked;
-    result = await putReceipts(myReceipt);
 
     this.setState({ data: myReceipt });
+    result = await putReceipts(myReceipt);
   };
 
   handleSearch = query => {

@@ -89,6 +89,7 @@ class ReceiptForm extends Form {
     } else {
       result = await putReceipts(this.state.data, this.state.data._id);
     }
+
     this.setState({ redirect: true });
   };
   handelAddQuantity = ingredient => {
