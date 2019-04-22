@@ -133,8 +133,15 @@ class ShoppingList extends Component {
             handelAddIngredient={this.handelAddIngredient}
           />
         </div>
-        <div>
-          <table className="table" style={{ maxWidth: "100%" }}>
+        <div style={{ display: "flex", maxwidth: "100%" }}>
+          <table
+            className="table"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              maxWidth: "100%"
+            }}
+          >
             <thead>
               <tr>
                 <th scope="col">Ingredients</th>
