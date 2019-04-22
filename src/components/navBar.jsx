@@ -4,9 +4,6 @@ import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 const NavBar = () => {
   return (
     <Navbar bg="light">
-      {/* <Link className="navbar-brand" to="/">
-        Receipts
-      </Link> */}
       <NavLink className="nav-item nav-link text-dark" to="/">
         Receipts
       </NavLink>

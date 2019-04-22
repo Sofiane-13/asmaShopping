@@ -13,13 +13,18 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <main className="container" style={{ marginBottom: "2rem" }}>
+        <main
+          className="container"
+          style={{
+            marginBottom: "2rem"
+          }}
+        >
           <NavBar />
           <Switch>
-            <ProtectedRoute path="/receipts/:id" component={ReceiptForm} />
-            <Route path="/shoppingList" component={ShoppingList} />
-            <Route path="/ingredients" component={AllIngredients} />
-            <Route path="/" component={Receipts} />
+            <ProtectedRoute path="/receipts/:id" component={ReceiptForm} />{" "}
+            <Route path="/shoppingList" component={ShoppingList} />{" "}
+            <Route path="/ingredients" component={AllIngredients} />{" "}
+            <Route path="/" component={Receipts} />{" "}
           </Switch>{" "}
         </main>{" "}
       </React.Fragment>

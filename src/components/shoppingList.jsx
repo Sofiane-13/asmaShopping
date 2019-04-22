@@ -142,7 +142,12 @@ class ShoppingList extends Component {
               maxWidth: "100%"
             }}
           >
-            <thead>
+            <thead
+              style={{
+                display: "flex",
+                justifyContent: "center"
+              }}
+            >
               <tr>
                 <th scope="col">Ingredients</th>
                 <th scope="col">Quantity</th>
@@ -150,7 +155,12 @@ class ShoppingList extends Component {
                 <th scope="col">Delete</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody
+              style={{
+                display: "flex",
+                justifyContent: "center"
+              }}
+            >
               {dataPaginate.map(ingredient => (
                 <tr key={ingredient.idIngredient}>
                   <td>{ingredient.title}</td>
