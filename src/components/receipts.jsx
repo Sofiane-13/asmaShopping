@@ -13,7 +13,8 @@ import Like from "./common/like";
 import { getGenres } from "../services/fakeGenreService";
 import { Button, Collapse } from "react-bootstrap";
 import { ToastsContainer, ToastsStore } from "react-toasts";
-
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 class Receipts extends Component {
   state = {
     receipts: [],
@@ -75,13 +76,30 @@ class Receipts extends Component {
     this.setState({ currentPage: page });
   };
   handelonDelete = async receipt => {
-    ToastsStore.success("Receipt removed!");
-    const { receipts } = this.state;
+    confirmAlert({
+      title: "Confirm to submit",
+      message: "Are you sure to remove the receipt ?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: async () => {
+            ToastsStore.success("Receipt removed!");
+            const { receipts } = this.state;
 
-    const myReceipt = receipts.filter(m => m !== receipt);
+            const myReceipt = receipts.filter(m => m !== receipt);
 
-    const result = await deleteReceipt(receipt);
-    this.setState({ receipts: myReceipt });
+            const result = await deleteReceipt(receipt);
+            this.setState({ receipts: myReceipt });
+          }
+        },
+        {
+          label: "No",
+          onClick: () => {
+            ToastsStore.success("Renouncing the deletion!");
+          }
+        }
+      ]
+    });
   };
   doSubmit = async () => {
     ToastsStore.success("Ingredients removed!");
