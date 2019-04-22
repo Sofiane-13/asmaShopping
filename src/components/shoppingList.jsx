@@ -107,12 +107,17 @@ class ShoppingList extends Component {
     const totalCount = data.length;
 
     return (
-      <div>
+      <div
+        style={{
+          marginTop: "1rem"
+        }}
+      >
         <ToastsContainer store={ToastsStore} />
         <div
           style={{
             display: "flex",
             alignItems: "center",
+            justifyContent: "center",
             marginBottom: "0.5rem"
           }}
         >
@@ -128,55 +133,57 @@ class ShoppingList extends Component {
             handelAddIngredient={this.handelAddIngredient}
           />
         </div>
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">Ingredients</th>
-              <th scope="col">Quantity</th>
-              <th scope="col">Unity</th>
-              <th scope="col">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {dataPaginate.map(ingredient => (
-              <tr key={ingredient.idIngredient}>
-                <td>{ingredient.title}</td>
-                <td>
-                  <div style={{ display: "flex" }}>
-                    <button
-                      onClick={() => this.handelRemoveQuantity(ingredient)}
-                      type="button"
-                      className="btn btn-primary btn-sm"
-                      style={{ marginRight: "5px" }}
-                    >
-                      -
-                    </button>
-                    <span>
-                      {ingredient.quantity}({ingredient.unity})
-                    </span>
-                    <button
-                      onClick={() => this.handelAddQuantity(ingredient)}
-                      type="button"
-                      className="btn btn-primary btn-sm"
-                      style={{ marginLeft: "5px" }}
-                    >
-                      +
-                    </button>
-                  </div>
-                </td>
-                <td>{ingredient.unity}</td>
-                <td>
-                  <button
-                    onClick={() => this.handelonDelete(ingredient)}
-                    className="btn btn-danger btn-sm"
-                  >
-                    Delete
-                  </button>
-                </td>
+        <div>
+          <table className="table" style={{ maxWidth: "100%" }}>
+            <thead>
+              <tr>
+                <th scope="col">Ingredients</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Unity</th>
+                <th scope="col">Delete</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {dataPaginate.map(ingredient => (
+                <tr key={ingredient.idIngredient}>
+                  <td>{ingredient.title}</td>
+                  <td>
+                    <div style={{ display: "flex" }}>
+                      <button
+                        onClick={() => this.handelRemoveQuantity(ingredient)}
+                        type="button"
+                        className="btn btn-primary btn-sm"
+                        style={{ marginRight: "5px" }}
+                      >
+                        -
+                      </button>
+                      <span>
+                        {ingredient.quantity}({ingredient.unity})
+                      </span>
+                      <button
+                        onClick={() => this.handelAddQuantity(ingredient)}
+                        type="button"
+                        className="btn btn-primary btn-sm"
+                        style={{ marginLeft: "5px" }}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </td>
+                  <td>{ingredient.unity}</td>
+                  <td>
+                    <button
+                      onClick={() => this.handelonDelete(ingredient)}
+                      className="btn btn-danger btn-sm"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         <Pagination
           itemsCount={totalCount}
           pageSize={pageSize}

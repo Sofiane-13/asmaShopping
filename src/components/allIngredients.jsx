@@ -103,7 +103,7 @@ class AllIngredients extends Component {
 
     return (
       <div style={{ marginTop: "1rem" }}>
-        <table className="table">
+        <table className="table" style={{ maxWidth: "100%" }}>
           <thead>
             <tr>
               <th>Name</th>
