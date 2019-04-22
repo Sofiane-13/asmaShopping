@@ -12,6 +12,7 @@ import Popup from "./common/popup";
 import { getIngredient } from "../httpServices/ingredientServices";
 import Pagination from "./common/pagination";
 import { paginate } from "./utils/paginate";
+import QuantityManager from "./common/quantityMannager";
 class ShoppingList extends Component {
   state = { listShopping: [], ingredients: [], pageSize: 5, currentPage: 1 };
   async componentDidMount() {
@@ -43,6 +44,7 @@ class ShoppingList extends Component {
       let resultshoppingList = await postShoppingListOne(data, false);
       listShopping.push(resultshoppingList.data);
       this.setState({ listShopping });
+      alert("Ingredient added !");
     } else {
       alert("Ingredient already exists !");
     }
@@ -75,6 +77,27 @@ class ShoppingList extends Component {
       dataPaginate: paginateIngredients,
       filtered: filtered
     };
+  };
+  handelAddQuantity = ingredient => {
+    const ingredients = [...this.state.ingredients];
+    // var newIngredient = ingredients.find(g => g._id === ingredient.idIngredient);
+    const index = ingredients.findIndex(g => g._id === ingredient.idIngredient);
+    console.log("ingredients", ingredients);
+    console.log("ingredient", ingredient);
+    console.log("index", index);
+    ingredients[index] = { ...ingredients[index] };
+    ingredients[index].quantity++;
+    console.log(" ingredients[index]", ingredients[index]);
+    this.setState({ ingredients });
+  };
+  handelRemoveQuantity = ingredient => {
+    const ingredients = [...this.state.ingredients];
+    const index = ingredients.indexOf(ingredient);
+
+    ingredients[index] = { ...ingredients[index] };
+    if (ingredients[index].quantity > 0) ingredients[index].quantity--;
+
+    this.setState({ ingredients });
   };
   render() {
     const { pageSize, currentPage } = this.state;
@@ -116,7 +139,30 @@ class ShoppingList extends Component {
             {dataPaginate.map(ingredient => (
               <tr key={ingredient.idIngredient}>
                 <td>{ingredient.title}</td>
-                <td>{ingredient.quantity}</td>
+                <td>
+                  {ingredient.quantity}
+                  <div style={{ display: "flex" }}>
+                    <button
+                      onClick={() => this.handelRemoveQuantity(ingredient)}
+                      type="button"
+                      className="btn btn-primary btn-sm"
+                      style={{ marginRight: "5px" }}
+                    >
+                      -
+                    </button>
+                    <span>
+                      {ingredient.quantity}({ingredient.unity})
+                    </span>
+                    <button
+                      onClick={() => this.handelAddQuantity(ingredient)}
+                      type="button"
+                      className="btn btn-primary btn-sm"
+                      style={{ marginLeft: "5px" }}
+                    >
+                      +
+                    </button>
+                  </div>
+                </td>
                 <td>{ingredient.unity}</td>
                 <td>
                   <button
