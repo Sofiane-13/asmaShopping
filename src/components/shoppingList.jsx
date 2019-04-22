@@ -12,7 +12,8 @@ import Popup from "./common/popup";
 import { getIngredient } from "../httpServices/ingredientServices";
 import Pagination from "./common/pagination";
 import { paginate } from "./utils/paginate";
-import QuantityManager from "./common/quantityMannager";
+import { ToastsContainer, ToastsStore } from "react-toasts";
+
 class ShoppingList extends Component {
   state = { listShopping: [], ingredients: [], pageSize: 5, currentPage: 1 };
   async componentDidMount() {
@@ -25,6 +26,7 @@ class ShoppingList extends Component {
     this.setState({ ingredients: ingredients.data });
   }
   handelAddIngredient = async (ingredientChoosed, quantity) => {
+    ToastsStore.success("Ingredient added!");
     let listShopping = [...this.state.listShopping];
     const exestingIngredient = listShopping.filter(
       m => m.idIngredient == ingredientChoosed._id
@@ -44,12 +46,12 @@ class ShoppingList extends Component {
       let resultshoppingList = await postShoppingListOne(data, false);
       listShopping.push(resultshoppingList.data);
       this.setState({ listShopping });
-      alert("Ingredient added !");
     } else {
-      alert("Ingredient already exists !");
+      ToastsStore.error("Ingredient already exists!");
     }
   };
   doSubmit = async () => {
+    ToastsStore.success("Ingredients removed!");
     let result = await deleteAllShoppingList();
     let resultReceipts = await putAllReceiptsFalse();
     let { listShopping } = this.state;
@@ -78,35 +80,35 @@ class ShoppingList extends Component {
       filtered: filtered
     };
   };
-  handelAddQuantity = ingredient => {
+  handelAddQuantity = async ingredient => {
     const ingredients = [...this.state.ingredients];
-    // var newIngredient = ingredients.find(g => g._id === ingredient.idIngredient);
     const index = ingredients.findIndex(g => g._id === ingredient.idIngredient);
-    console.log("ingredients", ingredients);
-    console.log("ingredient", ingredient);
-    console.log("index", index);
-    ingredients[index] = { ...ingredients[index] };
-    ingredients[index].quantity++;
-    console.log(" ingredients[index]", ingredients[index]);
+    ingredient.quantity = ingredient.quantity + 1;
+    let putShoppingListResult = await putShoppingList(ingredient);
+    ingredients[index] = ingredient;
     this.setState({ ingredients });
   };
-  handelRemoveQuantity = ingredient => {
+  handelRemoveQuantity = async ingredient => {
     const ingredients = [...this.state.ingredients];
-    const index = ingredients.indexOf(ingredient);
-
-    ingredients[index] = { ...ingredients[index] };
-    if (ingredients[index].quantity > 0) ingredients[index].quantity--;
-
-    this.setState({ ingredients });
+    const index = ingredients.findIndex(g => g._id === ingredient.idIngredient);
+    if (ingredient.quantity > 0) {
+      ingredient.quantity = ingredient.quantity - 1;
+      let putShoppingListResult = await putShoppingList(ingredient);
+      ingredients[index] = ingredient;
+      this.setState({ ingredients });
+    } else {
+      ToastsStore.error("Nothing to remove!");
+    }
   };
   render() {
     const { pageSize, currentPage } = this.state;
     const data = this.state.listShopping;
-    const { dataPaginate, filtered } = this.getPagedData(data);
+    const { dataPaginate } = this.getPagedData(data);
     const totalCount = data.length;
 
     return (
       <div>
+        <ToastsContainer store={ToastsStore} />
         <div
           style={{
             display: "flex",
@@ -140,7 +142,6 @@ class ShoppingList extends Component {
               <tr key={ingredient.idIngredient}>
                 <td>{ingredient.title}</td>
                 <td>
-                  {ingredient.quantity}
                   <div style={{ display: "flex" }}>
                     <button
                       onClick={() => this.handelRemoveQuantity(ingredient)}

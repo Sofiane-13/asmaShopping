@@ -8,6 +8,7 @@
     "bootstrap": "^4.3.1",
     "draft-js": "^0.10.5",
     "font-awesome": "^4.7.0",
+    "glamor": "^2.20.40",
     "joi-browser": "^13.4.0",
     "latest": "^0.2.0",
     "react": "^16.8.3",
@@ -15,7 +16,8 @@
     "react-bootstrap": "^1.0.0-beta.5",
     "react-dom": "^16.8.3",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "react-toasts": "^3.0.3"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -8,6 +8,9 @@ import Popup from "./common/popup";
 import { getReceiptsById } from "../httpServices/receiptServices";
 import { putReceipts } from "../httpServices/receiptServices";
 import { postReceipts } from "../httpServices/receiptServices";
+import { ToastsContainer, ToastsStore } from "react-toasts";
+import { Redirect } from "react-router-dom";
+
 class ReceiptForm extends Form {
   state = {
     data: {
@@ -25,7 +28,8 @@ class ReceiptForm extends Form {
     },
     genres: [],
     ingredients: [],
-    errors: {}
+    errors: {},
+    redirect: false
   };
 
   populateGenres() {
@@ -85,6 +89,7 @@ class ReceiptForm extends Form {
     } else {
       result = await putReceipts(this.state.data, this.state.data._id);
     }
+    this.setState({ redirect: true });
   };
   handelAddQuantity = ingredient => {
     const ingredients = [...this.state.data.ingredients];
@@ -109,6 +114,7 @@ class ReceiptForm extends Form {
     this.setState({ data });
   };
   handelonDelete = ingredient => {
+    ToastsStore.success("Ingredient removed!");
     const ingredients = this.state.data.ingredients.filter(
       m => m !== ingredient
     );
@@ -118,6 +124,7 @@ class ReceiptForm extends Form {
   };
 
   handelAddIngredient = (ingredientChoosed, quantity) => {
+    ToastsStore.success("Ingredient added!");
     let ingredients = [...this.state.data.ingredients];
     const exestingIngredient = ingredients.filter(
       m => m.idIngredient == ingredientChoosed._id
@@ -170,10 +177,13 @@ class ReceiptForm extends Form {
     this.setState({ data });
   }
   render() {
-    const { data, ingredients } = this.state;
-
+    const { data, ingredients, redirect } = this.state;
+    if (redirect) {
+      return <Redirect to="/" />;
+    }
     return (
       <div>
+        <ToastsContainer store={ToastsStore} />
         <div className="form-group">
           <label htmlFor="Title">Title</label>
           <input

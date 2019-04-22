@@ -12,6 +12,8 @@ import { deleteAllShoppingList } from "../httpServices/shoppingListServices";
 import Like from "./common/like";
 import { getGenres } from "../services/fakeGenreService";
 import { Button, Collapse } from "react-bootstrap";
+import { ToastsContainer, ToastsStore } from "react-toasts";
+
 class Receipts extends Component {
   state = {
     receipts: [],
@@ -73,6 +75,7 @@ class Receipts extends Component {
     this.setState({ currentPage: page });
   };
   handelonDelete = async receipt => {
+    ToastsStore.success("Receipt removed!");
     const { receipts } = this.state;
 
     const myReceipt = receipts.filter(m => m !== receipt);
@@ -81,6 +84,8 @@ class Receipts extends Component {
     this.setState({ receipts: myReceipt });
   };
   doSubmit = async () => {
+    ToastsStore.success("Ingredients removed!");
+
     let result = await deleteAllShoppingList();
     let resultReceipts = await putAllReceiptsFalse();
     let { receipts } = this.state;
@@ -127,6 +132,7 @@ class Receipts extends Component {
 
     return (
       <div style={{ marginTop: "1rem" }}>
+        <ToastsContainer store={ToastsStore} />
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Link to={`/receipts/new`}>
             <button className="btn btn-primary" style={{ marginRight: "1rem" }}>
