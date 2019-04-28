@@ -10,6 +10,7 @@ import { putReceipts } from "../httpServices/receiptServices";
 import { postReceipts } from "../httpServices/receiptServices";
 import { ToastsContainer, ToastsStore } from "react-toasts";
 import { Redirect } from "react-router-dom";
+const { validate } = require("../models/receipts");
 
 class ReceiptForm extends Form {
   state = {
@@ -76,7 +77,14 @@ class ReceiptForm extends Form {
     let { data } = this.state;
 
     let result;
+    let errorControl = false;
     const receiptId = this.props.match.params.id;
+    const { error } = validate(data);
+
+    if (error) {
+      ToastsStore.error("Form not valid!");
+      return;
+    }
     if (receiptId === "new") {
       if (data._id === "") {
         delete data._id;
@@ -89,7 +97,6 @@ class ReceiptForm extends Form {
     } else {
       result = await putReceipts(this.state.data, this.state.data._id);
     }
-
     this.setState({ redirect: true });
   };
   handelAddQuantity = ingredient => {
