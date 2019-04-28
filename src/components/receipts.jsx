@@ -199,6 +199,7 @@ class Receipts extends Component {
               <th>Ingredients</th>
               <th>Like</th>
               <th>Delete</th>
+              <th>Edit</th>
             </tr>
           </thead>
           <tbody>
@@ -221,6 +222,15 @@ class Receipts extends Component {
                   >
                     Delete
                   </button>
+                </td>
+                <td>
+                  <Link to={`/receiptsEdit/${data._id}`}>
+                    <i
+                      style={{ cursor: "pointer", fontSize: "1.5rem" }}
+                      className="fa fa-edit"
+                      aria-hidden="true"
+                    />
+                  </Link>
                 </td>
               </tr>
             ))}

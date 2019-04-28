@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/common/protectedRoute";
 import ReceiptForm from "./components/receiptForm";
 import ShoppingList from "./components/shoppingList";
 import AllIngredients from "./components/allIngredients";
+import ReceiptsDisplay from "./components/receiptsDisplay";
 
 class App extends Component {
   render() {
@@ -21,7 +22,8 @@ class App extends Component {
         >
           <NavBar />
           <Switch>
-            <ProtectedRoute path="/receipts/:id" component={ReceiptForm} />{" "}
+            <ProtectedRoute path="/receipts/:id" component={ReceiptsDisplay} />{" "}
+            <ProtectedRoute path="/receiptsEdit/:id" component={ReceiptForm} />{" "}
             <Route path="/shoppingList" component={ShoppingList} />{" "}
             <Route path="/ingredients" component={AllIngredients} />{" "}
             <Route path="/" component={Receipts} />{" "}

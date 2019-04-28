@@ -18,7 +18,10 @@ const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
 
   return (
     <nav>
-      <ul className="pagination">
+      <ul
+        className="pagination"
+        style={{ display: "flex", justifyContent: "center" }}
+      >
         {pages.map(page => (
           <li
             style={{ cursor: "pointer" }}

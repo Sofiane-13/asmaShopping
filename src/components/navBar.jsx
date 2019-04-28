@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 const NavBar = () => {
   return (
-    <Navbar bg="light">
+    <Navbar style={{ display: "flex", justifyContent: "center" }} bg="light">
       <NavLink className="nav-item nav-link text-dark" to="/">
         Receipts
       </NavLink>

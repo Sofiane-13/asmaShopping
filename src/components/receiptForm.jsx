@@ -11,6 +11,7 @@ import { postReceipts } from "../httpServices/receiptServices";
 import { ToastsContainer, ToastsStore } from "react-toasts";
 import { Redirect } from "react-router-dom";
 import { validate } from "../models/receipts";
+import { Link } from "react-router-dom";
 
 class ReceiptForm extends Form {
   state = {
@@ -192,6 +193,13 @@ class ReceiptForm extends Form {
     return (
       <div>
         <ToastsContainer store={ToastsStore} />
+        <Link style={{ cursor: "pointer", fontSize: "1.5rem" }} to={`/`}>
+          <div class="text-right">
+            <button className="btn btn-dark" style={{ marginTop: "2rem" }}>
+              Back
+            </button>
+          </div>
+        </Link>
         <div className="form-group">
           <label htmlFor="Title">Title</label>
           <input
