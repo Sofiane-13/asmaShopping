@@ -152,7 +152,7 @@ class Receipts extends Component {
       <div style={{ marginTop: "1rem" }}>
         <ToastsContainer store={ToastsStore} />
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <Link to={`/receipts/new`}>
+          <Link to={`/receiptsEdit/new`}>
             <button className="btn btn-primary" style={{ marginRight: "1rem" }}>
               New
             </button>
