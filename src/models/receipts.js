@@ -1,7 +1,6 @@
-const Joi = require('joi');
+const Joi = require('joi-browser');
 
 function validateReceipt(receipt) {
-    console.log('je suis dedans !!!!');
     const ingredientShema = Joi.object({
         _id: Joi.string().allow('').optional(),
         title: Joi.string().min(2).max(255).required(),

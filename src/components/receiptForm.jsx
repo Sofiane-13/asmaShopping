@@ -10,7 +10,7 @@ import { putReceipts } from "../httpServices/receiptServices";
 import { postReceipts } from "../httpServices/receiptServices";
 import { ToastsContainer, ToastsStore } from "react-toasts";
 import { Redirect } from "react-router-dom";
-const { validate } = require("../models/receipts");
+import { validate } from "../models/receipts";
 
 class ReceiptForm extends Form {
   state = {
