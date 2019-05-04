@@ -134,20 +134,8 @@ class ShoppingList extends Component {
           />
         </div>
         <div style={{ display: "flex", maxwidth: "100%" }}>
-          <table
-            className="table"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              maxWidth: "100%"
-            }}
-          >
-            <thead
-              style={{
-                display: "flex",
-                justifyContent: "center"
-              }}
-            >
+          <table className="table">
+            <thead>
               <tr>
                 <th scope="col">Ingredients</th>
                 <th scope="col">Quantity</th>
@@ -155,14 +143,7 @@ class ShoppingList extends Component {
                 <th scope="col">Delete</th>
               </tr>
             </thead>
-            <tbody
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-            >
+            <tbody>
               {dataPaginate.map(ingredient => (
                 <tr key={ingredient.idIngredient}>
                   <td>{ingredient.title}</td>
